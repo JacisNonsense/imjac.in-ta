@@ -1,0 +1,17 @@
+<nav class="navigation" id="navigation">
+  <section class="container">
+    <a class="button button-clear" href="{{ site.baseurl }}/">{{ site.title }}</a>
+
+    {% assign pages = site.pages | sort:"weight" %}
+    <div style="float: right;">
+      {% for page in pages %}
+        {% if page.title %}
+        {% if page.menu %}
+        <a class="button button-clear" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
+        {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+</nav>
+

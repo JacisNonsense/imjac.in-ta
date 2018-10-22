@@ -1,0 +1,28 @@
+<main class="wrapper">
+    <div class="container">
+        <h2> Directory Listing for <%= @path.empty? ? "/" : @path %> </h2>
+        <table>
+            <tr>
+                <th> Name </th>
+                <th> Last Modified </th>
+                <th> Size </th>
+            </tr>
+            <% unless @path.empty? || @path == '/' %>
+                <tr>
+                    <td> <a href="../"> <i class="fas fa-level-up" aria-hidden="true"></i> ../ </a> </td>
+                    <td> </td>
+                    <td> </td>
+                </tr>
+            <% end %>
+            <% Pathname.new(@directory).children.select(&:exist?).sort.each do |child| %>
+                <% dir, symlink = [File.directory?(child), File.symlink?(child)] %>
+                <% link = maven_link_path(Pathname.new(@path).join(File.basename(child))) %>
+                <tr>
+                    <td> <a href="<%= link %><%= dir ? '/' : ''%>"> <i class="far fa-<%= dir ? 'folder-open' : symlink ? 'long-arrow-right' : 'file' %>" aria-hidden="true"></i> <%= File.basename(child) %> </a> </td>
+                    <td> <%= File.mtime(child).strftime("%e %b %Y (%l:%M:%S %P UTC%:z)") %> </td>
+                    <td> <%= dir ? 'Directory' : symlink ? 'Symbolic Link' : filesize(File.size(child)) %> </td>
+                </tr>
+            <% end %>
+        </table>
+    </div>
+</main>

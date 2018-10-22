@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: imjacinta_development
+  host: localhost
+  username: web
+  password: web
+
+production:
+  <<: *default
+  database: imjacinta_production
+  username: web
+  password: <%= ENV['IMJACINTA_DATABASE_PASSWORD'] %>
