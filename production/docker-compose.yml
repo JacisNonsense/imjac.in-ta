@@ -1,0 +1,27 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    volumes:
+      - /www/postgres/data:/var/lib/postgresql/data
+  web:
+    image: imjacinta_web
+    command: bundle exec puma -b unix:///tmp/sockets/imjacinta.sock
+    environment:
+      - RAILS_ENV=production
+    volumes:
+      - /tmp/sockets:/tmp/sockets
+    depends_on:
+      - db
+  proxy:
+    image: nginx
+    volumes:
+      - ./production/nginx.conf:/etc/nginx/nginx.conf
+      - ./production/imjacinta.conf:/etc/nginx/conf.d/default.conf
+      - /tmp/sockets:/tmp/sockets
+      - /var/log/nginx:/tmp/log
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web

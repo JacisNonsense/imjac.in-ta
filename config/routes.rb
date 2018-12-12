@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
+  mount Blog::Engine => "/ta"
   mount Dev::Engine => "/dev"
-  
-  mount Blog::Engine => "/"
+
+  match '/', to: redirect('/ta'), via: :all
 end
