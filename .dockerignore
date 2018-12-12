@@ -1,5 +1,6 @@
 **/tmp/
 **/log/
 **/node_modules/
+**/storage/
 
 engines/blog/_site/
