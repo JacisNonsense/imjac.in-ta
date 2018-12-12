@@ -4,3 +4,5 @@
 **/storage/
 
 engines/blog/_site/
+
+/config/master.key
