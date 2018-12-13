@@ -1,12 +1,6 @@
-$:.push File.expand_path("lib", __dir__)
-
-# Maintain your gem's version:
-require "blog/version"
-
-# Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "blog"
-  s.version     = Blog::VERSION
+  s.version     = "0.1.0"
   s.authors     = ["Jaci Brunning"]
   s.email       = ["jaci.brunning@gmail.com"]
   s.homepage    = ""

@@ -1,0 +1,10 @@
+version: '3'
+services:
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./www/ssl/etc/letsencrypt:/etc/letsencrypt
+      - ./www/ssl/var/lib/letsencrypt:/var/lib/letsencrypt
+      - ./www/ssl/dhparam.pem:/etc/ssl/certs/dhparam.pem
+      - ./www/log/letsencrypt:/var/log/letsencrypt
+      - ./www/ssl/data/letsencrypt:/data/letsencrypt
