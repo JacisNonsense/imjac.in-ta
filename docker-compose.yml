@@ -1,16 +1,32 @@
 version: '3'
 services:
+  # Migrate DB in development
+  setup:
+    build: .
+    depends_on:
+      - db
+    environment:
+      - RAILS_ENV=development
+    command: "bin/rails db:migrate"
+  # Database
   db:
-    image: postgres
+    image: postgres:9.6-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=imjacinta_development
+      - PGDATA=/var/lib/postgresql/data
     volumes:
-      - ./tmp/db:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
+  # Webapp
   web:
     build: .
-    image: imjacinta_rails
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    image: imjacinta
+    command: ls -al
     volumes:
       - .:/imjacinta
     ports:
       - "3000:3000"
     depends_on:
       - db
+volumes:
+  pgdata:
