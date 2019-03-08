@@ -34,8 +34,8 @@ spec:
     spec:
       containers:
       - name: imjacinta-web
-        image: jaci/imjacinta:latest
-        args: ["bundle exec rails s -p 3000 -b 0.0.0.0"]
+        image: jaci/imjacinta:4160c0b
+        command: [bundle, exec, rails, s, -p, "3000", -b, "0.0.0.0"]
         envFrom:
         - configMapRef:
             name: rails-config
