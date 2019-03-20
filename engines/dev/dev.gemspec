@@ -13,5 +13,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 5.2.1"
   s.add_dependency "rails-fontawesome5", "0.2.0"
 
+  s.add_dependency "rubyzip", ">= 1.0.0"
+
   s.add_development_dependency "pg"
 end
