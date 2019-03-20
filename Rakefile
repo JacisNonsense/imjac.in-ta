@@ -6,7 +6,8 @@ require_relative 'config/application'
 Rails.application.load_tasks
 
 def get_docker_tag
-  "#{`git rev-parse --short HEAD`.strip}#{`git diff --quiet || echo -dirty`.strip}"
+  # "#{`git rev-parse --short HEAD`.strip}#{`git diff --quiet || echo -dirty`.strip}"
+  File.read("VERSION")
 end
 
 def get_docker_img

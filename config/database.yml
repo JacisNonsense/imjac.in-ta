@@ -13,6 +13,6 @@ development:
 production:
   <<: *default
   database: imjacinta_production
-  host: <%= ENV['DATABASE_HOST'] %>
+  host: <%= ENV['DATABASE_URL'] %>
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
