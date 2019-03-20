@@ -8,4 +8,4 @@ data:
   DATABASE_NAME: imjacinta_production
   DATABASE_URL: db
   DATABASE_PORT: "5432"
-  RAILS_APP: production
+  RAILS_ENV: production
