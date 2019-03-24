@@ -1,0 +1,24 @@
+<main class="wrapper">
+  <div class="container">
+    <h2> FRC Vendordeps Files </h2>
+    <table>
+      <tr>
+        <th> UUID </th>
+        <th> Artifact </th>
+        <th> Vendor JSON (latest) </th>
+      </tr>
+
+      <% @deps.sort_by(&:name).each do |dep| %>
+        <tr>
+          <td style="font-size: 0.7em"> <%= dep.uuid %> </td>
+          <td> <%= dep.name %> </td>
+          <td> 
+            <a href="<%= File.join(@here, "#{dep.uuid}?view") %>"> <i class="fas fa-search"> </i> &nbsp; </a>
+            <a href="<%= File.join(@here, "#{dep.uuid}") %>"> <i class="fas fa-download"> </i> &nbsp; </a>
+            <%= dep.version %> 
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

@@ -4,23 +4,34 @@
         <table>
             <tr>
                 <th> Name </th>
-                <th> Last Modified </th>
                 <th> Size </th>
+                <th> Hashes </th>
             </tr>
+
             <% unless @path.empty? || @path == '/' %>
                 <tr>
-                    <td> <a href="../"> <i class="fas fa-level-up" aria-hidden="true"></i> ../ </a> </td>
+                    <td> <a href="<%= File.join(@here, '..') %>"> <i class="fas fa-arrow-left"> </i> <i> Go Back </i> </a> </td>
                     <td> </td>
                     <td> </td>
                 </tr>
             <% end %>
-            <% Pathname.new(@directory).children.select(&:exist?).sort.each do |child| %>
-                <% dir, symlink = [File.directory?(child), File.symlink?(child)] %>
-                <% link = maven_link_path(Pathname.new(@path).join(File.basename(child))) %>
+
+            <% @dirs.sort_by { |x| x[:name] }.each do |dir| %>
                 <tr>
-                    <td> <a href="<%= link %><%= dir ? '/' : ''%>"> <i class="far fa-<%= dir ? 'folder-open' : symlink ? 'long-arrow-right' : 'file' %>" aria-hidden="true"></i> <%= File.basename(child) %> </a> </td>
-                    <td> <%= File.mtime(child).strftime("%e %b %Y (%l:%M:%S %P UTC%:z)") %> </td>
-                    <td> <%= dir ? 'Directory' : symlink ? 'Symbolic Link' : filesize(File.size(child)) %> </td>
+                    <td> <a href="<%= File.join(@here, dir[:name]) %>"> <i class="far fa-folder-open"> </i> <%= dir[:name] %> </td>
+                    <td> <%= dir[:childs] %> <%= dir[:child_tags] %> </td>
+                    <td> </td>
+                </tr>
+            <% end %>
+
+            <% @files.sort_by { |x| x[:name] }.each do |file| %>
+                <tr>
+                    <td> <a href="<%= File.join(@here, file[:name]) %>"> <i class="far fa-file"> </i> <%= file[:name] %> </a> </td>
+                    <td> <%= filesize file[:size] %> </td>
+                    <td style="font-size: 0.7em">
+                        <strong>SHA1:</strong> <a href="<%= File.join(@here, file[:name] + '.sha1')%>"> <%= file[:sha1][0...7] %> </a><br /> 
+                        <strong>MD5:</strong> <a href="<%= File.join(@here, file[:name] + '.md5')%>"> <%= file[:md5][0...7] %> </a>
+                    </td>
                 </tr>
             <% end %>
         </table>
