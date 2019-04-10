@@ -97,6 +97,8 @@ module Dev
     # Entrypoint for `maven/admin/upload/archive` (POST)
     # TODO: This should be a job
     def upload_archive
+      authenticate_admin!
+
       archive = request.params[:archive]
 
       Zip::File.open(archive.to_io) do |zf|

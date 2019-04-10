@@ -1,39 +1,35 @@
-<main class="wrapper">
-    <div class="container">
-        <h2> Directory Listing for <%= @path.empty? ? "/" : @path %> </h2>
-        <table>
-            <tr>
-                <th> Name </th>
-                <th> Size </th>
-                <th> Hashes </th>
-            </tr>
+<h2> Directory Listing for <%= @path.empty? ? "/" : @path %> </h2>
+<table>
+    <tr>
+        <th> Name </th>
+        <th> Size </th>
+        <th> Hashes </th>
+    </tr>
 
-            <% unless @path.empty? || @path == '/' %>
-                <tr>
-                    <td> <a href="<%= File.join(@here, '..') %>"> <i class="fas fa-arrow-left"> </i> <i> Go Back </i> </a> </td>
-                    <td> </td>
-                    <td> </td>
-                </tr>
-            <% end %>
+    <% unless @path.empty? || @path == '/' %>
+        <tr>
+            <td> <a href="<%= File.join(@here, '..') %>"> <i class="fas fa-arrow-left"> </i> <i> Go Back </i> </a> </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+    <% end %>
 
-            <% @dirs.sort_by { |x| x[:name] }.each do |dir| %>
-                <tr>
-                    <td> <a href="<%= File.join(@here, dir[:name]) %>"> <i class="far fa-folder-open"> </i> <%= dir[:name] %> </td>
-                    <td> <%= dir[:childs] %> <%= dir[:child_tags] %> </td>
-                    <td> </td>
-                </tr>
-            <% end %>
+    <% @dirs.sort_by { |x| x[:name] }.each do |dir| %>
+        <tr>
+            <td> <a href="<%= File.join(@here, dir[:name]) %>"> <i class="far fa-folder-open"> </i> <%= dir[:name] %> </td>
+            <td> <%= dir[:childs] %> <%= dir[:child_tags] %> </td>
+            <td> </td>
+        </tr>
+    <% end %>
 
-            <% @files.sort_by { |x| x[:name] }.each do |file| %>
-                <tr>
-                    <td> <a href="<%= File.join(@here, file[:name]) %>"> <i class="far fa-file"> </i> <%= file[:name] %> </a> </td>
-                    <td> <%= filesize file[:size] %> </td>
-                    <td style="font-size: 0.7em">
-                        <strong>SHA1:</strong> <a href="<%= File.join(@here, file[:name] + '.sha1')%>"> <%= file[:sha1][0...7] %> </a><br /> 
-                        <strong>MD5:</strong> <a href="<%= File.join(@here, file[:name] + '.md5')%>"> <%= file[:md5][0...7] %> </a>
-                    </td>
-                </tr>
-            <% end %>
-        </table>
-    </div>
-</main>
+    <% @files.sort_by { |x| x[:name] }.each do |file| %>
+        <tr>
+            <td> <a href="<%= File.join(@here, file[:name]) %>"> <i class="far fa-file"> </i> <%= file[:name] %> </a> </td>
+            <td> <%= filesize file[:size] %> </td>
+            <td style="font-size: 0.7em">
+                <strong>SHA1:</strong> <a href="<%= File.join(@here, file[:name] + '.sha1')%>"> <%= file[:sha1][0...7] %> </a><br /> 
+                <strong>MD5:</strong> <a href="<%= File.join(@here, file[:name] + '.md5')%>"> <%= file[:md5][0...7] %> </a>
+            </td>
+        </tr>
+    <% end %>
+</table>

@@ -2,6 +2,10 @@ require 'json'
 
 module Dev
   module MavenHelper
+    def auth_upload_api!
+      # TODO:
+    end
+
     FILESIZE_PREFIXES = %w{k M G T P E Z Y}
     def filesize bytes
         if bytes < 1000

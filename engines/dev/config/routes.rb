@@ -1,4 +1,6 @@
 Dev::Engine.routes.draw do
+  devise_for :users, class_name: "Dev::User", module: :devise
+
   # General Access
   get 'maven' => 'maven#list', defaults: { path: '/' }
   get 'maven/frc' => 'maven#frclist'
@@ -13,4 +15,5 @@ Dev::Engine.routes.draw do
 
   # Last Priority (wildcard path)
   get 'maven/*path' => 'maven#list', as: 'maven_link'
+
 end
