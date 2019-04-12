@@ -1,5 +1,5 @@
-require "dev/engine"
 require "devise"
+require "dev/engine"
 
 require "jquery-rails"
 
