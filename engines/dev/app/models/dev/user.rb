@@ -10,7 +10,7 @@ module Dev
    private
     # Promote the first registered user to admin-status
     def promote_admin
-      self.admin = User.count == 0
+      self.admin = true if User.count == 0
     end
   end
 end

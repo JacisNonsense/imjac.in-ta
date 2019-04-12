@@ -94,10 +94,19 @@ module Dev
 
     EXCLUDED_FILES = %w(.md5 .sha1)
 
+    def token_check
+      user = deploy_token_owner(request.params[:token])
+      unless user.nil?
+        render plain: user.username
+      else
+        render plain: "Invalid token", status: :unauthorized
+      end
+    end
+
     # Entrypoint for `maven/admin/upload/archive` (POST)
     # TODO: This should be a job
     def upload_archive
-      authenticate_admin!
+      (render plain: "Unauthorized!", status: :unauthorized and return) if deploy_token_owner(request.params[:token]).nil?
 
       archive = request.params[:archive]
 
@@ -183,6 +192,28 @@ module Dev
       end
 
       render plain: "done!\r\n"
+    end
+
+    # TODO: Manage tokens properly the rails way
+    def token_manager
+      authenticate_admin!
+
+      @new_token = DeployToken.new(user: current_user, token: SecureRandom.uuid)
+      @tokens = DeployToken.all
+    end
+
+    def create_token
+      authenticate_admin!
+
+      DeployToken.create(user: current_user, token: params[:deploy_token][:token], description: params[:deploy_token][:description])
+      redirect_to request.referer
+    end
+
+    def revoke_token
+      authenticate_admin!
+
+      DeployToken.where(token: params[:id]).destroy_all
+      redirect_to request.referer
     end
 
     def frclist

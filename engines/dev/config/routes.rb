@@ -6,8 +6,13 @@ Dev::Engine.routes.draw do
   get 'maven/frc' => 'maven#frclist'
   get 'maven/frc/:uuid/' => 'maven#frcdep'
   
+  get 'maven/token_check' => 'maven#token_check'
+
   # Admin
   post 'maven/admin/upload/archive' => 'maven#upload_archive'
+  get 'maven/admin/tokens' => 'maven#token_manager'
+  post 'maven/admin/create_token' => 'maven#create_token'
+  delete 'maven/admin/revoke_token/:id' => 'maven#revoke_token'
 
   # Legacy Links
   match 'maven/grpl/pathfinder/Pathfinder-latest.json', to: redirect('maven/frc/44237bb3-7675-43ba-894a-302083a37bd8'), via: :all

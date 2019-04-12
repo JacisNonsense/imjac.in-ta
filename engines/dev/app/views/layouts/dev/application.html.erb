@@ -17,6 +17,9 @@
       <div style="float: right;">
         <% unless devise_controller? %>
           <% if user_signed_in? %>
+            <% if current_user.admin? %>
+              <%= link_to "Tokens", maven_admin_tokens_path, class: 'button button-clear' %>
+            <% end %>
             <%= link_to current_user.username, edit_user_registration_path, class: 'button button-clear' %>
             <%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'button button-clear' %>
           <% else %>

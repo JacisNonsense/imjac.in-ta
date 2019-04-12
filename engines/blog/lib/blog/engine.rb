@@ -7,8 +7,6 @@ module Blog
 
     if defined?(::Rails::Server)
       initializer "Jekyll" do |app|
-        Rails.logger = Logger.new(STDOUT)
-
         jekylldir = Blog::Engine.root.join('jekyll').to_s
         config = Blog::Engine.root.join('config', 'jekyll.yml').to_s
         outroot = Blog::Engine.root.join('_site')

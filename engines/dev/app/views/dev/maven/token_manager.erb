@@ -1,0 +1,30 @@
+<h2> Token Manager </h2>
+
+<h4> Generate new token </h4>
+<%= form_for @new_token, url: { action: 'create_token' } do |f| %>
+  <%= f.text_field :token, readonly: true %>
+  <%= f.label :description%>
+  <%= f.text_field :description %>
+  <%= f.submit "Generate New Token" %>
+<% end %>
+
+<h4> Active Tokens </h4>
+<table>
+  <tr>
+    <th> Token UUID </th>
+    <th> Description </th>
+    <th> User </th>
+    <th> Created </th>
+    <th> Revoke </th>
+  </tr>
+
+  <% @tokens.each do |token| %>
+    <tr>
+      <td style="font-size: 0.7em"> <%= token.token[0..7] + "-****-****-****-********" + token.token[32..35] %> </td>
+      <td> <%= token.description %> </td>
+      <td> <%= token.user.username %> </td>
+      <td> <%= humanize_time(DateTime.now.to_i - token.created_at.to_i) %> ago </td>
+      <td> <%= link_to "REVOKE", "revoke_token/#{token.token}", method: :delete, class: 'button' %> </td>
+    </tr>
+  <% end %>
+</table>

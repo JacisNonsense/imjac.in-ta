@@ -13,6 +13,10 @@ module Dev
       end
     end
 
+    def deploy_token_owner token_id
+      token_id.nil? ? nil : DeployToken.find_by(token: token_id)&.user
+    end
+
     def configure_permitted_parameters
       added_attrs = [:username, :email, :password, :password_confirmation, :remember_me]
       devise_parameter_sanitizer.permit :sign_up, keys: added_attrs

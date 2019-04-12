@@ -2,10 +2,6 @@ require 'json'
 
 module Dev
   module MavenHelper
-    def auth_upload_api!
-      # TODO:
-    end
-
     FILESIZE_PREFIXES = %w{k M G T P E Z Y}
     def filesize bytes
         if bytes < 1000
@@ -17,6 +13,17 @@ module Dev
             unit = FILESIZE_PREFIXES[pos-1] + "B"
             (bytes.to_f / 1000**pos).round(2).to_s + unit
         end
+    end
+
+    # From https://stackoverflow.com/a/4136485, because I'm lazy
+    def humanize_time secs
+      [[60, :seconds], [60, :minutes], [24, :hours], [Float::INFINITY, :days]].map{ |count, name|
+        if secs > 0
+          secs, n = secs.divmod(count)
+
+          "#{n.to_i} #{name}" unless n.to_i==0
+        end
+      }.compact.reverse.join(' ')
     end
 
     def zip_tmp_extract entry, &block
