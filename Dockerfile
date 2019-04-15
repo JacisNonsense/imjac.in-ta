@@ -1,6 +1,6 @@
 FROM ruby:2.6.0
 
-RUN apt-get update -qq && apt-get install -y vim build-essential libpq-dev nodejs tree
+RUN apt-get update -qq && apt-get install -y vim build-essential libpq-dev nodejs yarn tree
 
 RUN mkdir /imjacinta
 WORKDIR /imjacinta
@@ -18,3 +18,5 @@ RUN bundle install
 
 # Copy after we have installed dependencies
 COPY . /imjacinta
+
+ENTRYPOINT ["sh", "/imjacinta/entrypoint.sh"]
