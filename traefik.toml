@@ -1,0 +1,24 @@
+logLevel = "DEBUG"
+defaultEntryPoints = ["http", "https"]
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
+
+[api]
+
+[docker]
+  watch = true
+  swarmMode = true
+
+[acme]
+email = "jaci.brunning@gmail.com"
+entryPoint = "https"
+onHostRule = true
+storage = "acme.json"
+
+[acme.httpChallenge]
+entryPoint = 'http'

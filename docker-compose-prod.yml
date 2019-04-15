@@ -1,0 +1,105 @@
+version: '3.5'
+
+x-commonenv: &commonenv
+  POSTGRES_USER: web
+  POSTGRES_DB: imjacinta_prod
+  POSTGRES_PASSWORD_FILE: /run/secrets/dbpass
+  RAILS_ENV: production
+  RAILS_SERVE_STATIC_FILES: 'true'
+
+configs:
+  traefik.toml:
+    file: ./traefik.toml
+
+services:
+  # Setup Rake Tasks (e.g. migrate db)
+  setup:
+    image: jaci/imjacinta:2019.4.13c
+    command: bin/rails db:migrate
+    environment:
+      <<: *commonenv
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    secrets:
+      - dbpass
+      - secretkeybase
+    depends_on:
+      - db
+    networks:
+      - backend
+  # Web Service
+  imjacinta:
+    image: jaci/imjacinta:2019.4.13c
+    command: sh -c "bundle exec rake assets:precompile && bundle exec rails s -p 3000 -b 0.0.0.0"
+    environment:
+      <<: *commonenv
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      labels:
+        - "traefik.frontend.rule=HostRegexp:imjac.in,{subdomain:[a-zA-Z0-9]+}.imjac.in"
+        - "traefik.docker.network=traefik_proxy"
+        - "traefik.port=3000"
+    secrets:
+      - dbpass
+      - secretkeybase
+    depends_on:
+      - db
+      - setup
+    networks:
+      - proxy
+      - backend
+  # Reverse Proxy
+  rvs-proxy:
+    image: traefik:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080" # --api
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - traefik_acme:/acme.json
+    configs:
+      - source: traefik.toml
+        target: /etc/traefik/traefik.toml
+    networks:
+      - proxy
+    deploy: 
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+  # Database Engine
+  # TODO: Need to manage replication if scaling application. Perhaps Mongo might be a good shout?
+  db:
+    image: postgres:9.6-alpine
+    environment:
+      <<: *commonenv
+    secrets:
+      - dbpass
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - backend
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+   
+
+networks:
+  proxy:
+    name: traefik_proxy
+  backend:
+
+volumes:
+  pgdata:
+  traefik_acme:
+
+secrets:
+  dbpass:
+    external: true
+  secretkeybase:
+    external: true
