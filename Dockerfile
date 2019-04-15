@@ -1,6 +1,7 @@
 FROM ruby:2.6.0
 
-RUN apt-get update -qq && apt-get install -y vim build-essential libpq-dev nodejs yarn tree
+RUN apt-get update -qq && apt-get install -y vim build-essential libpq-dev tree curl software-properties-common
+RUN (curl -sL https://deb.nodesource.com/setup_11.x | bash -) && apt-get update -qq && apt-get install -y nodejs && npm install -g yarn
 
 RUN mkdir /imjacinta
 WORKDIR /imjacinta
