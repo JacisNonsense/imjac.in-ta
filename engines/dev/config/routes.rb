@@ -1,5 +1,7 @@
 Dev::Engine.routes.draw do
-  devise_for :users, class_name: "Dev::User", module: :devise
+  devise_for :users, class_name: "Dev::User", module: :devise, controllers: { registrations: "dev/registrations" }
+
+  root :to => 'index#index'
 
   # General Access
   get 'maven' => 'maven#list', defaults: { path: '/' }
