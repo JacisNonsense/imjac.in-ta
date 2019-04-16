@@ -20,4 +20,6 @@ RUN bundle install
 # Copy after we have installed dependencies
 COPY . /imjacinta
 
+RUN bundle exec rake assets:precompile
+
 ENTRYPOINT ["sh", "/imjacinta/entrypoint.sh"]

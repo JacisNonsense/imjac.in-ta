@@ -1,5 +1,8 @@
-logLevel = "DEBUG"
+logLevel = "INFO"
 defaultEntryPoints = ["http", "https"]
+
+[traefikLog]
+  filePath = "/acme/traefik.log"
 
 [entryPoints]
   [entryPoints.http]
@@ -18,7 +21,7 @@ defaultEntryPoints = ["http", "https"]
 email = "jaci.brunning@gmail.com"
 entryPoint = "https"
 onHostRule = true
-storage = "acme.json"
+storage = "/acme/acme.json"
 
 [acme.httpChallenge]
 entryPoint = 'http'

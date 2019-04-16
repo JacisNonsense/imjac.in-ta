@@ -6,6 +6,7 @@ x-commonenv: &commonenv
   POSTGRES_PASSWORD_FILE: /run/secrets/dbpass
   RAILS_ENV: production
   RAILS_SERVE_STATIC_FILES: 'true'
+  GCS_CREDS: /run/secrets/gcscreds
 
 configs:
   traefik.toml:
@@ -14,7 +15,7 @@ configs:
 services:
   # Setup Rake Tasks (e.g. migrate db)
   setup:
-    image: jaci/imjacinta:2019.4.13c
+    image: localhost:5000/jaci/imjacinta:2019.4.17
     command: bin/rails db:migrate
     environment:
       <<: *commonenv
@@ -25,14 +26,15 @@ services:
     secrets:
       - dbpass
       - secretkeybase
+      - gcscreds
     depends_on:
       - db
     networks:
       - backend
   # Web Service
   imjacinta:
-    image: jaci/imjacinta:2019.4.13c
-    command: sh -c "bundle exec rake assets:precompile && bundle exec rails s -p 3000 -b 0.0.0.0"
+    image: localhost:5000/jaci/imjacinta:2019.4.17
+    command: bundle exec rails s -p 3000 -b 0.0.0.0
     environment:
       <<: *commonenv
     deploy:
@@ -40,12 +42,13 @@ services:
       restart_policy:
         condition: on-failure
       labels:
-        - "traefik.frontend.rule=HostRegexp:imjac.in,{subdomain:[a-zA-Z0-9]+}.imjac.in"
+        - "traefik.frontend.rule=Host:test.imjac.in"
         - "traefik.docker.network=traefik_proxy"
         - "traefik.port=3000"
     secrets:
       - dbpass
       - secretkeybase
+      - gcscreds
     depends_on:
       - db
       - setup
@@ -61,7 +64,7 @@ services:
       - "8080:8080" # --api
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - traefik_acme:/acme.json
+      - traefik_acme:/acme
     configs:
       - source: traefik.toml
         target: /etc/traefik/traefik.toml
@@ -102,4 +105,6 @@ secrets:
   dbpass:
     external: true
   secretkeybase:
+    external: true
+  gcscreds:
     external: true
