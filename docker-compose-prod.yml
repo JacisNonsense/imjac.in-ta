@@ -9,7 +9,7 @@ x-commonenv: &commonenv
   GCS_CREDS: /run/secrets/gcscreds
 
 configs:
-  traefik.toml:
+  traefik.toml.1:
     file: ./traefik.toml
 
 services:
@@ -61,12 +61,11 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080" # --api
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - traefik_acme:/acme
     configs:
-      - source: traefik.toml
+      - source: traefik.toml.1
         target: /etc/traefik/traefik.toml
     networks:
       - proxy
