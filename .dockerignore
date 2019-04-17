@@ -6,3 +6,5 @@
 engines/blog/_site/
 
 config/master.key
+
+ignored/

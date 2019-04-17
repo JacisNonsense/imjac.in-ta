@@ -14,6 +14,11 @@
 <main class="wrapper">
   <nav class="navigation" id="navigation">
     <section class="container">
+      <% unless devise_controller? %>
+        <%= link_to "Home", root_path, class: 'button button-clear' %>
+        <%= link_to "Maven", maven_path, class: 'button button-clear' %>
+        <%= link_to "VendorDeps", maven_frc_path, class: 'button button-clear' %>
+      <% end %>
       <div style="float: right;">
         <% unless devise_controller? %>
           <% if user_signed_in? %>
