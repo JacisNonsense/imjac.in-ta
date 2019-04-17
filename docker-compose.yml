@@ -28,15 +28,33 @@ services:
     ports:
       - "3080:80"
   # Webapp
-  web:
+  imjacinta:
     build: .
     image: imjacinta
-    command: bundle exec rails s -p 3333 -b 0.0.0.0
+    command: bundle exec rails s -p 3000 -b 0.0.0.0
     volumes:
       - .:/imjacinta
     ports:
-      - "3333:3333"
+      - "3333:3000"
     depends_on:
       - db
+  # Prometheus
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  # Grafana
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "9999:3000"
+    volumes:
+      - grafana:/var/lib/grafana
+    depends_on:
+      - prometheus
+
 volumes:
   pgdata:
+  grafana:

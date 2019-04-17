@@ -23,3 +23,7 @@ storage = "/acme/acme.json"
 
 [acme.httpChallenge]
 entryPoint = 'http'
+
+[metrics]
+  [metrics.prometheus]
+    entryPoint = 'traefik'

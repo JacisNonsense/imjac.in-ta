@@ -9,13 +9,15 @@ x-commonenv: &commonenv
   GCS_CREDS: /run/secrets/gcscreds
 
 configs:
-  traefik.toml.1:
+  traefik.toml.2:
     file: ./traefik.toml
+  prometheus.yml:
+    file: ./prometheus.yml
 
 services:
   # Setup Rake Tasks (e.g. migrate db)
   setup:
-    image: jaci/imjacinta:2019.4.18
+    image: jaci/imjacinta:2019.4.19
     command: bin/rails db:migrate
     environment:
       <<: *commonenv
@@ -33,7 +35,7 @@ services:
       - backend
   # Web Service
   imjacinta:
-    image: jaci/imjacinta:2019.4.18
+    image: jaci/imjacinta:2019.4.19
     command: bundle exec rails s -p 3000 -b 0.0.0.0
     environment:
       <<: *commonenv
@@ -42,7 +44,7 @@ services:
       restart_policy:
         condition: on-failure
       labels:
-        - "traefik.frontend.rule=Host:imjac.in,www.imjac.in,dev.imjac.in"
+        - "traefik.frontend.rule=Host:imjac.in,www.imjac.in,dev.imjac.in;ReplacePathRegex: ^/internal/(.*) /404/$$1"
         - "traefik.docker.network=traefik_proxy"
         - "traefik.port=3000"
     secrets:
@@ -65,7 +67,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - traefik_acme:/acme
     configs:
-      - source: traefik.toml.1
+      - source: traefik.toml.2
         target: /etc/traefik/traefik.toml
     networks:
       - proxy
@@ -89,6 +91,38 @@ services:
       replicas: 1
       placement:
         constraints: [node.role == manager]
+  # Data analytics
+  prometheus:
+    image: prom/prometheus
+    configs:
+      - source: prometheus.yml
+        target: /etc/prometheus/prometheus.yml
+    networks:
+      - backend
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - grafana:/var/lib/grafana
+    depends_on:
+      - prometheus
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager] # Grafana has persistent storage
+      restart_policy:
+        condition: on-failure
+      labels:
+        - "traefik.frontend.rule=Host:metrics.imjac.in"
+        - "traefik.docker.network=traefik_proxy"
+        - "traefik.port=3000"
+    networks:
+      - proxy
+      - backend
+
    
 
 networks:
@@ -99,6 +133,7 @@ networks:
 volumes:
   pgdata:
   traefik_acme:
+  grafana:
 
 secrets:
   dbpass:
