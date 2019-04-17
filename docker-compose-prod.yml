@@ -41,6 +41,8 @@ services:
       <<: *commonenv
     deploy:
       replicas: 1
+      update_config:
+        order: start-first
       restart_policy:
         condition: on-failure
       labels:
@@ -51,6 +53,10 @@ services:
       - dbpass
       - secretkeybase
       - gcscreds
+    healthcheck:
+      test: curl --fail localhost:3000 || exit 1
+      timeout: 10s
+      interval: 20s
     depends_on:
       - db
       - setup
