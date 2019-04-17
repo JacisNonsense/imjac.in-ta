@@ -17,7 +17,7 @@ end
 def exec_machine command
   name = ENV['name'] || 'imjacinta'
   status = `docker-machine status #{name}`
-  raise "Machine does not exist! Use rake docker:create_deployment to make one!" if status.include?("does not exist")
+  raise "Machine does not exist! Use rake docker:create_deployment to make one!" if status.blank?
 
   exec "/bin/sh -c \"eval \\\"$(docker-machine env #{name})\\\" && #{command}\""
 end
@@ -53,7 +53,7 @@ namespace :docker do
 
     raise "No IP given! Provide it with 'ip=XX.XX.XX.XX'" if host.nil? || host.empty?
 
-    if `docker-machine status #{name}`.include?("does not exist")
+    if `docker-machine status #{name}`.blank?
       puts "Creating Docker-Machine with IP: #{host}, Name: #{name}, SSH Key: #{key}, SSH User: #{user}"
       exec "docker-machine create --driver generic --generic-ip-address #{host} --generic-ssh-user #{user} --generic-ssh-key #{key} #{name}"
     else

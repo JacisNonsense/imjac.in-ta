@@ -11,8 +11,6 @@ defaultEntryPoints = ["http", "https"]
   address = ":443"
     [entryPoints.https.tls]
 
-[api]
-
 [docker]
   watch = true
   swarmMode = true
