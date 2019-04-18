@@ -46,6 +46,8 @@ module Dev
           if is_hash
             render plain: is_sha1 ? file.sha1 : file.md5
           else
+            file.download_count += 1
+            file.save
             redirect_to main_app.rails_blob_path(file.file, disposition: "attachment", only_path: true)
           end
         else 

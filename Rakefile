@@ -7,7 +7,7 @@ Rails.application.load_tasks
 
 def get_docker_tag
   # "#{`git rev-parse --short HEAD`.strip}#{`git diff --quiet || echo -dirty`.strip}"
-  File.read("VERSION")
+  File.read("VERSION").strip
 end
 
 def get_docker_img
@@ -38,6 +38,20 @@ namespace :docker do
 
   task :get_image do
     puts get_docker_img
+  end
+
+  task :update_version, :new_vers do |t, args|
+    old_vers = File.read("VERSION").strip
+    args.with_defaults(new_vers: Time.now.strftime("%Y.%-m.%-d"))
+    new_vers = args[:new_vers]
+    if old_vers == new_vers
+      puts "Versions match! Not updating: #{new_vers}"
+    else
+      puts "Version Bump: #{old_vers} -> #{new_vers}"
+      File.write("VERSION", "#{new_vers}\n")
+      pcompose = "docker-compose-prod.yml"
+      File.write(pcompose, File.read(pcompose).gsub(old_vers, new_vers))
+    end
   end
 
   desc "Build docker and launch"
