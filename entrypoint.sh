@@ -10,4 +10,8 @@ if [ -f /run/secrets/dbpass ]; then
 export "POSTGRES_PASSWORD"=$(cat /run/secrets/dbpass)
 fi
 
+if [ -f /run/secrets/master ]; then
+export "RAILS_MASTER_KEY"=$(cat /run/secrets/master)
+fi
+
 exec "$@"

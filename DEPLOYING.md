@@ -35,6 +35,7 @@ You can deploy the secrets my logging into portainer and setting the following s
 - dbpass: The database password
 - secretkeybase: The secret key base for Rails, used as the base for many crypto functions
 - gcscreds: The credentials for Google Cloud Storage, from the Google Cloud Console
+- master: The master key for the rails installation, used to access credentials.yml.enc
 
 For non-credentials (e.g. the `secretkeybase`), you can get the value directly from rake, which will generate a random one: `rake secret | xclip -selection clipboard`
 
