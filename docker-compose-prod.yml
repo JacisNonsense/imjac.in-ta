@@ -64,7 +64,7 @@ services:
       - proxy
       - backend
   # Reverse Proxy
-  rvs-proxy:
+  traefik:
     image: traefik:alpine
     ports:
       - "80:80"
@@ -104,6 +104,7 @@ services:
       - source: prometheus.yml
         target: /etc/prometheus/prometheus.yml
     networks:
+      - proxy
       - backend
     deploy:
       replicas: 1
