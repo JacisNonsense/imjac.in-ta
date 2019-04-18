@@ -2,6 +2,7 @@ module OnDeck
   require_dependency 'on_deck/tba'
 
   # Update GDS (Global Dominance Score) for all current events
+  # Also updates webcasts and events
   class UpdateTbaAllGdsJob < ApplicationJob
     queue_as :default
 
@@ -30,7 +31,7 @@ module OnDeck
             unless team_rp_averages[team].nil?
               puts "GDS #{team} is playing multiple events at once... What?"
             end
-            team_rp_averages[team] = avg_rp
+            team_rp_averages[team] = [avg_rp, event['key']]
           end
           total_teams += rankings['rankings'].count
         else
@@ -44,11 +45,11 @@ module OnDeck
       EventGlobalDominanceScore.transaction do
         EventGlobalDominanceScore.destroy_all
 
-        sorted_scores = team_rp_averages.to_a.sort_by { |x| -x.last } # Sort desc
+        sorted_scores = team_rp_averages.to_a.sort_by { |x| -x[1][0] } # Sort desc
         sorted_scores.each_with_index do |team_arr, rank|
           rank = rank + 1
           match_points = [22, inverf( (total_teams - 2*rank + 2) / (1.07 * total_teams) ) * (10 / inverf(1 / 1.07)) + 12].min
-          EventGlobalDominanceScore.create(team: team_arr[0], rank: rank, score: match_points)
+          EventGlobalDominanceScore.create(team: team_arr[0], event: team_arr[1][1], rank: rank, score: match_points)
           # Post team, points, and rank
         end
       end
@@ -56,6 +57,7 @@ module OnDeck
       puts "GDS Update Complete!"
     end
 
+    # Thanks https://stackoverflow.com/questions/27229371/inverse-error-function-in-c
     def inverf(x)
       tt1 = 0
       tt2 = 0

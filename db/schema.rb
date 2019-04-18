@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_18_203733) do
+ActiveRecord::Schema.define(version: 2019_04_18_221832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 2019_04_18_203733) do
 
   create_table "on_deck_event_global_dominance_scores", force: :cascade do |t|
     t.string "team"
+    t.string "event"
     t.integer "score"
     t.integer "rank"
     t.datetime "created_at", null: false
@@ -119,6 +120,12 @@ ActiveRecord::Schema.define(version: 2019_04_18_203733) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["team"], name: "index_on_deck_event_past_performance_scores_on_team", unique: true
+  end
+
+  create_table "on_deck_upcoming_recommendations", force: :cascade do |t|
+    t.string "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "dev_deploy_tokens", "dev_users"
