@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   constraints subdomain: "dev" do
     match '(*_)' => "subdomain#redirect", via: :all
@@ -5,6 +7,9 @@ Rails.application.routes.draw do
 
   mount Blog::Engine => "/ta"
   mount Dev::Engine => "/dev"
+  mount OnDeck::Engine => "/frc/ondeck"
+
+  mount Sidekiq::Web => "/sidekiq"
 
   match '/', to: redirect('/ta'), via: :all
 end

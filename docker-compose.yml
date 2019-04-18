@@ -3,6 +3,7 @@ services:
   # Migrate DB in development
   setup:
     build: .
+    image: imjacinta
     depends_on:
       - db
     environment:
@@ -29,7 +30,7 @@ services:
       - "3080:80"
   # Webapp
   imjacinta:
-    build: .
+    # Build ommitted, done by setup
     image: imjacinta
     command: bundle exec rails s -p 3000 -b 0.0.0.0
     volumes:
@@ -38,23 +39,41 @@ services:
       - "3333:3000"
     depends_on:
       - db
-  # Prometheus
-  prometheus:
-    image: prom/prometheus
-    ports:
-      - "9090:9090"
+      - redis
+      - setup
+  # Redis
+  redis:
+    image: redis:alpine
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-  # Grafana
-  grafana:
-    image: grafana/grafana
-    ports:
-      - "9999:3000"
+      - redis:/data
+  # Sidekiq
+  sidekiq:
+    image: imjacinta
+    command: bundle exec sidekiq
     volumes:
-      - grafana:/var/lib/grafana
+      - .:/imjacinta
     depends_on:
-      - prometheus
+      - setup
+      - redis
+      - imjacinta
+  # Prometheus
+  # prometheus:
+    # image: prom/prometheus
+    # ports:
+      # - "9090:9090"
+    # volumes:
+      # - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  # Grafana
+  # grafana:
+    # image: grafana/grafana
+    # ports:
+      # - "9999:3000"
+    # volumes:
+      # - grafana:/var/lib/grafana
+    # depends_on:
+      # - prometheus
 
 volumes:
   pgdata:
   grafana:
+  redis:
