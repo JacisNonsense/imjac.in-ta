@@ -142,7 +142,7 @@ module OnDeck
 
     # Tune these as you see fit
     def weighted_score gds, pps
-      5 * gds + 2 * pps
+      4 * gds + 5 * pps
     end
 
     def gds_scale gds, max

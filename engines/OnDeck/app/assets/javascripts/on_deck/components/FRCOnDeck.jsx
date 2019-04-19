@@ -3,7 +3,7 @@ class FRCOnDeck extends React.Component {
     super(props)
     this.state = { matches: [], hide: false, channel: 'firstinspires1', currentMatch: null }
 
-    this.fetcher = new Fetcher("api/recommendations.json", [])
+    this.fetcher = new Fetcher(this.props.rec_url, [])
     this.fetcher.mount(data => this.setState({ matches: data }))
 
     setInterval(() => { this.fetcher.refresh() }, 15*1000)   // Update every 15s

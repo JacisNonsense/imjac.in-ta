@@ -17,7 +17,7 @@ configs:
 services:
   # Setup Rake Tasks (e.g. migrate db)
   setup:
-    image: jaci/imjacinta:2019.4.19c
+    image: jaci/imjacinta:2019.4.20
     command: bin/rails db:migrate
     environment:
       <<: *commonenv
@@ -29,13 +29,14 @@ services:
       - dbpass
       - secretkeybase
       - gcscreds
+      - master
     depends_on:
       - db
     networks:
       - backend
   # Web Service
   imjacinta:
-    image: jaci/imjacinta:2019.4.19c
+    image: jaci/imjacinta:2019.4.20
     command: bundle exec rails s -p 3000 -b 0.0.0.0
     environment:
       <<: *commonenv
@@ -53,6 +54,7 @@ services:
       - dbpass
       - secretkeybase
       - gcscreds
+      - master
     healthcheck:
       test: curl --fail localhost:3000 || exit 1
       timeout: 10s
@@ -97,6 +99,38 @@ services:
       replicas: 1
       placement:
         constraints: [node.role == manager]
+  # Redis
+  redis:
+    image: redis:alpine
+    environment:
+      <<: *commonenv
+    volumes: 
+      - redis:/data
+    networks:
+      - backend
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+  # Sidekiq
+  sidekiq:
+    image: jaci/imjacinta:2019.4.20
+    command: bundle exec sidekiq
+    environment:
+      <<: *commonenv
+    secrets:
+      - master
+      - dbpass
+      - secretkeybase
+      - gcscreds
+    depends_on:
+      - setup
+      - redis
+      - imjacinta
+    networks:
+      - backend
+    deploy:
+      replicas: 1
   # Data analytics
   prometheus:
     image: prom/prometheus
@@ -141,6 +175,7 @@ volumes:
   pgdata:
   traefik_acme:
   grafana:
+  redis:
 
 secrets:
   dbpass:
@@ -148,4 +183,6 @@ secrets:
   secretkeybase:
     external: true
   gcscreds:
+    external: true
+  master:
     external: true
