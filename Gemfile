@@ -28,6 +28,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'sidekiq', '5.2.6'
+gem 'sidekiq-scheduler', '~> 3.0.0'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

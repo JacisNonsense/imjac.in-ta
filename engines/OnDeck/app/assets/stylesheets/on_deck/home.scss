@@ -37,6 +37,10 @@ div.ondeck-container {
   div {
     height: 100%;
   }
+
+  .chat-window {
+    width: 25%;
+  }
 }
 
 .suggestions-window {
@@ -84,11 +88,15 @@ div.ondeck-container {
     transition: background-color 0.15s ease-out;
   }
   transition: background-color 0.15s ease-out;
-}
 
-.match-name {
-  font-size: 1.3em;
-  margin-left: 10px;
+  strong {
+    margin-left: 10px;
+    font-size: 1.3em;
+  }
+
+  i {
+    margin-left: 10px;
+  }
 }
 
 .alliance {
@@ -113,6 +121,9 @@ div.ondeck-container {
   }
   strong {
     font-size: 2em;
+  }
+  .hot-team {
+    color: #fff;
   }
   span {
     border-bottom: 1px dotted;

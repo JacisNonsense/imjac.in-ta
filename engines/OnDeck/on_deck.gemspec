@@ -15,6 +15,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails-fontawesome5", "0.2.0"
   spec.add_dependency "jquery-rails", "~> 4.3.3"
   spec.add_dependency "react-rails", "~> 2.5.0"
+  spec.add_dependency "sidekiq-scheduler", '~> 3.0.0'
 
   spec.add_development_dependency "pg"
 end

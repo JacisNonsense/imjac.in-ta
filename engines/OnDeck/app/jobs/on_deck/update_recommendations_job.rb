@@ -11,7 +11,7 @@ module OnDeck
 
       team_scores = {}
       weighted = weighted_scores team_scores
-      upcoming = upcoming_matches(60*20)  # 20 min
+      upcoming = upcoming_matches(60*14)  # 14 min, two cycles
 
       candidates = []
 
@@ -21,11 +21,11 @@ module OnDeck
         blue_teams = match['alliances']['blue']['team_keys']
         red_teams = match['alliances']['red']['team_keys']
 
-        blue_weights = blue_teams.map { |team| weighted[team] }
-        red_weights  = red_teams.map { |team| weighted[team] }
+        blue_weights = blue_teams.map { |team| weighted[team] }.sort
+        red_weights  = red_teams.map { |team| weighted[team] }.sort
 
-        blue_avg = blue_weights.reduce(:+) / blue_weights.count
-        red_avg = red_weights.reduce(:+) / red_weights.count
+        blue_avg = alliance_weighted_avg blue_weights.reverse
+        red_avg = alliance_weighted_avg red_weights.reverse
 
         candidates << {
           match: match,
@@ -51,6 +51,7 @@ module OnDeck
           },
           max_avg: [blue_avg, red_avg].max,
           match_name: get_match_name(match),
+          last_played: match['last_played_match'].nil? ? nil : get_match_name(match['last_played_match']),
           event_key: match['event_key']
         }
       end
@@ -73,11 +74,26 @@ module OnDeck
       current_events = EventGlobalDominanceScore.all.to_a.map(&:event).uniq
       unless current_events.count <= 1
         current_events.map do |event|
-          unplayed_matches = TBA::api('event', event, 'matches', 'simple').select do |m| 
-            m['actual_time'].nil? && (m['predicted_time'] - now) <= buffer_time_s
+          all_matches = TBA::api('event', event, 'matches', 'simple')
+          played_matches = []
+          unplayed_upcoming = []
+
+          all_matches.each do |m|
+            if !m['actual_time'].nil?
+              played_matches << m
+            elsif (m['predicted_time'] - now) <= buffer_time_s
+              unplayed_upcoming << m
+            end
           end
-          puts "#{event} has #{unplayed_matches.count} upcoming unplayed matches"
-          unplayed_matches
+          puts "#{event} has #{unplayed_upcoming.count} upcoming unplayed matches"
+          played_matches.sort_by!{ |x| x['actual_time'] }
+          last_played = played_matches.empty? ? nil : played_matches.last
+          
+          unplayed_upcoming.each do |match|
+            match['last_played_match'] = last_played
+          end
+
+          unplayed_upcoming
         end.flatten
       else
         []
@@ -90,6 +106,12 @@ module OnDeck
     end
 
     ## Scores
+
+    # Puts more emphasis on the top two robots, not so much the 3rd.
+    def alliance_weighted_avg scores
+      weights = [1, 0.9, 0.5, 0.4]
+      scores.zip(weights).map { |x| x.reduce(:*) }.reduce(:+) # Weighted sum
+    end
 
     def weighted_scores team_scores
       gds = EventGlobalDominanceScore.all.to_a
