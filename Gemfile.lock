@@ -6,6 +6,7 @@ PATH
       jquery-rails (~> 4.3.3)
       rails (= 5.2.3)
       rails-fontawesome5 (= 0.2.0)
+      react-rails (~> 2.5.0)
 
 PATH
   remote: engines/blog
@@ -87,6 +88,10 @@ GEM
       faraday (~> 0.9)
       faraday_middleware (~> 0.10)
       nokogiri (~> 1.6, >= 1.6.8)
+    babel-source (5.8.35)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     bcrypt (3.1.12)
     bindex (0.7.0)
     bootsnap (1.4.3)
@@ -264,6 +269,12 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    react-rails (2.5.0)
+      babel-transpiler (>= 0.7.0)
+      connection_pool
+      execjs
+      railties (>= 3.2)
+      tilt
     redis (4.1.0)
     representable (3.0.4)
       declarative (< 0.1.0)

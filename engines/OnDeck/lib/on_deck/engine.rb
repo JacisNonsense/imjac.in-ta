@@ -4,5 +4,6 @@ module OnDeck
 
     require 'bootstrap'
     require 'rails-fontawesome5'
+    require 'react-rails'
   end
 end

@@ -1,55 +1,89 @@
+div.ondeck-container {
+  padding: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .ondeck-top {
   min-width: 100%;
   background-color: #9b4dca;
-  padding: 0.3em 0em 1em 1em;
+  padding: 0.3em 0.9em 1em 1em;
   max-height: 2.5em;
   height: 2.5em;
   color: white;
-  position: absolute;
-  display: flex;
   vertical-align: middle;
-}
 
-.ondeck-top h4 {
-  margin: 0;
+  h4, h5, h6 {
+    margin: 0;
+  }
 }
 
 .player-window {
   background-color: #333333;
-  position: absolute;
-  left: 0px;
-  right: 0px;
-  top: 2.5em;
-  bottom: 30%;
   margin-right: 0px;
   margin-left: 0px;
   overflow: hidden;
-  transition: bottom 0.3s ease-in-out;
+
+  div {
+    height: 100%;
+  }
 }
 
-.controls-window {
-  position: absolute;
-  left: 0px;
-  right: 0px;
-  top: 70%;
-  bottom: 0em;
-  padding: 1em;
-}
-
-.match-col {
+.suggestions-window {
   background-color: #bbbbbb;
-  margin: 0 10px;
+  overflow: hidden;
+  max-height: 100%;
+
+  .hideable {
+    &.hide {
+      max-height: 0;
+    }
+    max-height: 100%;
+  }
+
+  .hide-bar {
+    background-color: #5f2781;
+
+    color: white;
+    text-align: center;
+    padding: 0.2em;
+
+    i.fa-circle {
+      font-size: 0.5em;
+      vertical-align: middle;
+    }
+
+    &:hover {
+      background-color: #9b4dca;
+      transition: background-color 0.15s ease-out;
+    }
+    transition: background-color 0.15s ease-out;
+  }
+}
+
+.match-suggestion {
+  background-color: #bbbbbb;
+  margin: 10px 10px;
   padding: 0.5em 0.75em;
   border-radius: 0.5em;
   border: 2px solid #333333;
+  max-width: 33.3%;
+  
+  &:hover {
+    background-color: #dbabf7;
+    transition: background-color 0.15s ease-out;
+  }
   transition: background-color 0.15s ease-out;
-  transition: border-width 0.15s ease-out;
-}
-
-.match-col:hover {
-  background-color: #dbabf7;
-  border-width: 4px;
-
 }
 
 .match-name {
@@ -66,6 +100,8 @@
     background-color: #ff7777;
   }
 
+  margin-right: 0px;
+  margin-left: 0px;
   margin: 5px 20px;
 
   border-radius: 0.5em;
@@ -77,6 +113,9 @@
   }
   strong {
     font-size: 2em;
+  }
+  span {
+    border-bottom: 1px dotted;
   }
 
   text-align: center;

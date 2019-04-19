@@ -33,7 +33,7 @@ module OnDeck
             avg: blue_avg,
             teams: blue_teams.map { |team|
               {
-                number: team[2..-1].to_i,
+                number: team[3..-1].to_i,
                 gds: team_scores[team][:gds],
                 pps: team_scores[team][:pps]
               }
@@ -43,7 +43,7 @@ module OnDeck
             avg: red_avg,
             teams: red_teams.map { |team|
               {
-                number: team[2..-1].to_i,
+                number: team[3..-1].to_i,
                 gds: team_scores[team][:gds],
                 pps: team_scores[team][:pps]
               }
@@ -68,8 +68,7 @@ module OnDeck
     ## Upcoming Matches
 
     def upcoming_matches buffer_time_s
-      # now = Time.now.to_i
-      now = 1555678800
+      now = Time.now.to_i
 
       current_events = EventGlobalDominanceScore.all.to_a.map(&:event).uniq
       unless current_events.count <= 1
