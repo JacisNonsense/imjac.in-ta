@@ -72,13 +72,17 @@ module OnDeck
       now = 1555678800
 
       current_events = EventGlobalDominanceScore.all.to_a.map(&:event).uniq
-      current_events.map do |event|
-        unplayed_matches = TBA::api('event', event, 'matches', 'simple').select do |m| 
-          m['actual_time'].nil? && (m['predicted_time'] - now) <= buffer_time_s
-        end
-        puts "#{event} has #{unplayed_matches.count} upcoming unplayed matches"
-        unplayed_matches
-      end.flatten
+      unless current_events.count <= 1
+        current_events.map do |event|
+          unplayed_matches = TBA::api('event', event, 'matches', 'simple').select do |m| 
+            m['actual_time'].nil? && (m['predicted_time'] - now) <= buffer_time_s
+          end
+          puts "#{event} has #{unplayed_matches.count} upcoming unplayed matches"
+          unplayed_matches
+        end.flatten
+      else
+        []
+      end
     end
 
     def get_match_name match

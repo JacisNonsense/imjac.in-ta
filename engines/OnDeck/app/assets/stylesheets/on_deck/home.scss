@@ -1,0 +1,84 @@
+.ondeck-top {
+  min-width: 100%;
+  background-color: #9b4dca;
+  padding: 0.3em 0em 1em 1em;
+  max-height: 2.5em;
+  height: 2.5em;
+  color: white;
+  position: absolute;
+  display: flex;
+  vertical-align: middle;
+}
+
+.ondeck-top h4 {
+  margin: 0;
+}
+
+.player-window {
+  background-color: #333333;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 2.5em;
+  bottom: 30%;
+  margin-right: 0px;
+  margin-left: 0px;
+  overflow: hidden;
+  transition: bottom 0.3s ease-in-out;
+}
+
+.controls-window {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 70%;
+  bottom: 0em;
+  padding: 1em;
+}
+
+.match-col {
+  background-color: #bbbbbb;
+  margin: 0 10px;
+  padding: 0.5em 0.75em;
+  border-radius: 0.5em;
+  border: 2px solid #333333;
+  transition: background-color 0.15s ease-out;
+  transition: border-width 0.15s ease-out;
+}
+
+.match-col:hover {
+  background-color: #dbabf7;
+  border-width: 4px;
+
+}
+
+.match-name {
+  font-size: 1.3em;
+  margin-left: 10px;
+}
+
+.alliance {
+  &.blue {
+    background-color: #7777ff;
+  }
+
+  &.red {
+    background-color: #ff7777;
+  }
+
+  margin: 5px 20px;
+
+  border-radius: 0.5em;
+}
+
+.team {
+  i.fas, i.far {
+    font-size: 0.9em;
+  }
+  strong {
+    font-size: 2em;
+  }
+
+  text-align: center;
+  font-size: 1em;
+}
