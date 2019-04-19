@@ -36,7 +36,7 @@ class FRCOnDeck extends React.Component {
       </div>
 
       <div className="player-window flex-grow-1">
-        <div className="d-flex flex-row">
+        <div className="d-flex flex-row" style={{height: '100%'}}>
           <IFrameView url={"https://player.twitch.tv/?channel=" + this.state.channel} />
           <div className="chat-window">
             <IFrameView url={"https://twitch.tv/embed/firstupdatesnow/chat"} />

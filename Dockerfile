@@ -22,6 +22,7 @@ RUN bundle install
 # Copy after we have installed dependencies
 COPY . /imjacinta
 
-RUN bundle exec rake assets:precompile
+# Rake inits everything, so we have to fake the keys
+RUN rake assets:precompile RAILS_ENV=production SECRET_KEY_BASE=`rake secret` RAILS_MASTER_KEY=`rake secret`
 
 ENTRYPOINT ["sh", "/imjacinta/entrypoint.sh"]
