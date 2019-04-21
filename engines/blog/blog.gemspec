@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "5.2.3"
   s.add_dependency "jekyll", "3.6.3"
   s.add_dependency "jekyll-paginate", "1.1.0"
+  s.add_dependency "jekyll-paginate-multiple", "0.1.0"
   s.add_dependency "kramdown", "1.15.0"
   s.add_dependency "rouge", "1.11.1"
   s.add_dependency "minima", "~> 2.0"

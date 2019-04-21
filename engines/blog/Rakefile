@@ -15,5 +15,6 @@ RDoc::Task.new(:rdoc) do |rdoc|
 end
 
 load 'rails/tasks/statistics.rake'
+# load 'lib/tasks/jekyll.rake'
 
 require 'bundler/gem_tasks'

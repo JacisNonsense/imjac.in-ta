@@ -8,8 +8,16 @@ url: "http://imjac.in" # the base hostname & protocol for your site
 twitter_username: JacisNonsense
 github_username:  JacisNonsense
 
-paginate: 9
-paginate_path: "/page/:num/"
+#paginate: 9
+#paginate_path: "/page/:num/"
+
+paginate_multiple:
+  - paginate: 10
+    paginate_path: '/frc-log/:num/'
+    sub_dir: '/frc-log'
+  - paginate: 10
+    paginate_path: '/:num/'
+    sub_dir: '/main'
 
 permalink: "/post/:year/:month/:day/:title.html"
 future: true
@@ -26,7 +34,7 @@ kramdown:
 
 destination: ../_build/html/ta/
 
-plugins: ['jekyll-paginate']
+plugins: ['jekyll-paginate', 'jekyll-paginate-multiple']
 
 #excerpt_separator: ""
 

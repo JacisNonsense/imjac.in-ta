@@ -1,14 +1,17 @@
 <nav class="navigation" id="navigation">
   <section class="container">
     <a class="button button-clear" href="{{ site.baseurl }}/">{{ site.title }}</a>
-
     {% assign pages = site.pages | sort:"weight" %}
+    {% for page in pages %}
+      {% if page.title and page.menu and page.menu == "main" %}
+      <a class="button button-clear" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
+      {% endif %}
+    {% endfor %}
+
     <div style="float: right;">
       {% for page in pages %}
-        {% if page.title %}
-        {% if page.menu %}
+        {% if page.title and page.menu and page.menu != "main" %}
         <a class="button button-clear" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
-        {% endif %}
         {% endif %}
       {% endfor %}
     </div>
