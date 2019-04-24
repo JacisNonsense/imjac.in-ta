@@ -23,9 +23,8 @@ def exec_machine command
   status = `docker-machine status #{name}`
   raise "Machine does not exist! Use rake docker:create_deployment to make one!" if status.empty?
 
-  command = "/bin/bash -c \"eval \\\"$(docker-machine env #{name})\\\" && #{command}\""
-  puts command
-  # exec command
+  command = "/bin/bash -c \"eval $(docker-machine env #{name}) && #{command}\""
+  exec command
 end
 
 def create_deployment
