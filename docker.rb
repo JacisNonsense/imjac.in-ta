@@ -45,7 +45,7 @@ end
 
 def docker_push
   docker_build
-  system "docker push #{DOCKER_TAG}"
+  system "docker push #{DOCKER_IMG}"
 end
 
 def docker_up_dev
