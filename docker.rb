@@ -21,7 +21,7 @@ end
 def exec_machine command
   name = ENV['name'] || 'imjacinta'
   status = `docker-machine status #{name}`
-  raise "Machine does not exist! Use rake docker:create_deployment to make one!" if status.blank?
+  raise "Machine does not exist! Use rake docker:create_deployment to make one!" if status.empty?
 
   exec "/bin/sh -c \"eval \\\"$(docker-machine env #{name})\\\" && #{command}\""
 end
