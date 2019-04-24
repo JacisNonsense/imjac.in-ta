@@ -17,7 +17,7 @@ configs:
 services:
   # Setup Rake Tasks (e.g. migrate db)
   setup:
-    image: jaci/imjacinta:2019.4.20
+    image: jaci/imjacinta:${IMJACINTA_VERSION}
     command: bin/rails db:migrate
     environment:
       <<: *commonenv
@@ -36,7 +36,7 @@ services:
       - backend
   # Web Service
   imjacinta:
-    image: jaci/imjacinta:2019.4.20
+    image: jaci/imjacinta:${IMJACINTA_VERSION}
     command: bundle exec rails s -p 3000 -b 0.0.0.0
     environment:
       <<: *commonenv
@@ -114,7 +114,7 @@ services:
         constraints: [node.role == manager]
   # Sidekiq
   sidekiq:
-    image: jaci/imjacinta:2019.4.20
+    image: jaci/imjacinta:${IMJACINTA_VERSION}
     command: bundle exec sidekiq
     environment:
       <<: *commonenv
