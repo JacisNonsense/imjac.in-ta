@@ -70,5 +70,9 @@ if __FILE__ == $0
     docker_deploy
   elsif act == 'create_deploy'
     create_deployment
+  elsif act == 'get_tag'
+    puts DOCKER_TAG
+  elsif act == 'get_img'
+    puts DOCKER_IMG
   end
 end
