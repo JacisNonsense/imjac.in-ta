@@ -2,6 +2,7 @@
 layout: post
 title: "OPRs and Least Squares Approximation, Geometrically"
 date: 2017-10-08 21:30:56
+author: Jaci
 categories: opr, stat, frc, linalg
 ---
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>

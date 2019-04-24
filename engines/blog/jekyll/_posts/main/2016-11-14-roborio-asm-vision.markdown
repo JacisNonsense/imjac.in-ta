@@ -2,6 +2,7 @@
 layout: post
 title: "RoboRIO Vision Tracking at 30fps without a Coprocessor"
 date: 2016-11-14 08:00:15
+author: Jaci
 categories: roborio, frc, asm, coprocessor, vision, kinect
 ---
  **TL;DR: We can run 30fps Vision Tracking on the RoboRIO at 7-8ms per frame, equating to only about 23% CPU Time. For scale, the FRC Network Comms program uses about 20% CPU constantly** 

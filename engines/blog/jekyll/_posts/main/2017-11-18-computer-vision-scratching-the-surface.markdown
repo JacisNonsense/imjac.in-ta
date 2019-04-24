@@ -2,6 +2,7 @@
 layout: post
 title: "Computer Vision - Scratching the Surface"
 date: 2017-11-18 11:30:00
+author: Jaci
 categories: cv, vision, talk, frc
 ---
 

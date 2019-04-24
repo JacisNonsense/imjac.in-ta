@@ -2,6 +2,8 @@
 layout: post
 title: "2018 OpenRIO Season in Review - The Numbers"
 date: 2018-02-21 23:38:00
+author: Jaci
+header-img: img/openrio_2018_review/builds_per_week.png
 categories: openrio, frc
 ---
 

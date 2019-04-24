@@ -3,13 +3,24 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>{% if page.title %}{{ site.title }} - {{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
-  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+  {% capture og_title %}{% if page.title %}{{ site.title }} - {{ page.title }}{% else %}{{ site.title }}{% endif %}{% endcapture %}
+  {% capture og_desc %}{% if page.subtitle %}{{ page.subtitle | strip_newlines }}{% elsif page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 100 }}{% else %}{{ site.description | strip_newlines }}{% endif %}{% endcapture %}
+  {% capture og_url %}{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}{% endcapture %}
+  
+  <title>{{ og_title }}</title>
+
+  {% if page.header-img %}
+    <meta property="og:image" content="{{site.url}}{{site.baseurl}}/{{ page.header-img }}" />
+  {% endif %}
+  <meta property="og:title" content="{{ og_title }}" />
+  <meta property="og:description" content="{{ og_desc }}" />
+  <meta property="og:url" content="{{ og_url }}" />
+  <meta property="og:site_name" content="I'm Jac.in/ta" />
 
   <link rel="stylesheet" href="/ta/assets/css/milligram.min.css">
   <link rel="stylesheet" href="/ta/assets/css/fontawesome.min.css">
   <link rel="stylesheet" href="/ta/assets/css/blog.css">
-  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+  <link rel="canonical" href="{{ og_url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
 
   {% for js in page.javascript %}

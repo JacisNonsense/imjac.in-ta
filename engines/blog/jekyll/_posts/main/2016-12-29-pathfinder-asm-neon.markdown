@@ -2,6 +2,7 @@
 layout: post
 title: "Ultra-Fast Trajectory Generation (Motion Profiling)"
 date: 2016-12-29 11:07:56
+author: Jaci
 categories: roborio, frc, asm, motion, trajectory
 ---
   Alternative Title: Jaci you're not allowed to play with Assembly anymore.  

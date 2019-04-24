@@ -4,7 +4,7 @@ email: jaci.brunning@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   I write code for people who write code for people who drive robots.
 baseurl: "/ta"
-url: "http://imjac.in" # the base hostname & protocol for your site
+url: "https://imjac.in" # the base hostname & protocol for your site
 twitter_username: JacisNonsense
 github_username:  JacisNonsense
 

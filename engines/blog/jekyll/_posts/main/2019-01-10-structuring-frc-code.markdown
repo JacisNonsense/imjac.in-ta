@@ -1,7 +1,10 @@
 ---
 layout: post
 title: "Thoughtful functionality - Writing well-structured, reliable, and flexible FRC code"
+subtitle: "How to write well-structured and flexible FRC code, despite the buzz of build season, and getting past the 'just get the robot moving' attitude."
+header-img: img/structuring-frc-code/complex.png
 date: 2019-01-11 01:00:00
+author: Jaci
 categories: frc, code
 ---
 

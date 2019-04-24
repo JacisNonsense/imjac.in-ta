@@ -2,6 +2,7 @@
 layout: post
 title: "Writing your own mDNS implementation to hack the FRC Driver Station"
 date: 2016-08-24 13:55:35
+author: Jaci
 categories: mdns, toast, frc
 ---
   When I wrote Toast for Java, I had a master plan for the simulation environment, and it had to fit the following agenda:
