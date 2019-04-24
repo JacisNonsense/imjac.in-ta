@@ -34,12 +34,8 @@ def create_deployment
 
   raise "No IP given! Provide it with 'ip=XX.XX.XX.XX' as an env var" if host.nil? || host.empty?
 
-  if `docker-machine status #{name}`.blank?
-    puts "Creating Docker-Machine with IP: #{host}, Name: #{name}, SSH Key: #{key}, SSH User: #{user}"
-    exec "docker-machine create --driver generic --generic-ip-address #{host} --generic-ssh-user #{user} --generic-ssh-key #{key} #{name}"
-  else
-    puts "Machine already exists!"
-  end
+  puts "Creating Docker-Machine with IP: #{host}, Name: #{name}, SSH Key: #{key}, SSH User: #{user}"
+  exec "docker-machine create --driver generic --generic-ip-address #{host} --generic-ssh-user #{user} --generic-ssh-key #{key} #{name}"
 end
 
 def docker_build
