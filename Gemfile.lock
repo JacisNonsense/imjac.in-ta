@@ -14,6 +14,7 @@ PATH
   specs:
     blog (0.1.0)
       jekyll (= 3.6.3)
+      jekyll-feed (= 0.11.0)
       jekyll-paginate (= 1.1.0)
       jekyll-paginate-multiple (= 0.1.0)
       kramdown (= 1.15.0)

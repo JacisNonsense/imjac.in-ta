@@ -35,7 +35,7 @@ Let's start with the DC motor model:
 We can confirm the above by looking at the components of the equation above.
 
 \\[ V_\omega = k_\omega \omega \\]
-When the current is at its lowest (~ 0A), all the voltage provided to the motor is used by speed ($$\omega$$). In other words, when the motor is at free speed, with no load, its current draw is close to zero.
+When the current is at its lowest (~ 0A), all the voltage provided to the motor is used by speed ($$\omega$$). In other words, when the motor is at free speed, with no load, its current draw is close to zero. Note that this doesn't include free current, which is an important distinction to take note of. 
 
 \\[ V_I = IR \\]
 When the speed ($$\omega$$) is 0, all the voltage provided to the motor is used by the above. In other words, when the motor is stalled, the current is at its highest, and the speed is at its lowest (zero). Note also that this is the equation for Ohm's Law. When a motor is not spinning, it acts just like a resistor, albeit with a slight inductive component that we're choosing to identify as negligible here.

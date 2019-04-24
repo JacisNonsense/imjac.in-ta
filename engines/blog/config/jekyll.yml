@@ -34,7 +34,7 @@ kramdown:
 
 destination: ../_build/html/ta/
 
-plugins: ['jekyll-paginate', 'jekyll-paginate-multiple']
+plugins: ['jekyll-paginate', 'jekyll-paginate-multiple', 'jekyll-feed']
 
 #excerpt_separator: ""
 
