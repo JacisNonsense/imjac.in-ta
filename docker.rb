@@ -18,18 +18,18 @@ def copy_deps
   end
 end
 
-def exec_machine command
-  name = ENV['name'] || 'imjacinta'
+def exec_machine prefix, command
+  name = ENV['deploy_name'] || 'imjacinta'
   status = `docker-machine status #{name}`
   raise "Machine does not exist! Use rake docker:create_deployment to make one!" if status.empty?
 
-  command = "/bin/bash -c \"eval $(docker-machine env #{name}) && #{command}\""
+  command = "#{prefix} ./run_in_machine.sh #{name} #{command}"
   exec command
 end
 
 def create_deployment
   key = ENV['key'] || '~/.ssh/id_rsa'
-  name = ENV['name'] || 'imjacinta'
+  name = ENV['deploy_name'] || 'imjacinta'
   user = ENV['sshuser'] || 'root'
   host = ENV['ip']
 
@@ -55,7 +55,7 @@ def docker_up_dev
 end
 
 def docker_deploy
-  exec_machine "IMJACINTA_VERSION=#{DOCKER_TAG} docker stack deploy --compose-file=docker-compose-prod.yml imjacinta"
+  exec_machine "IMJACINTA_VERSION=#{DOCKER_TAG}", "docker stack deploy --compose-file=docker-compose-prod.yml imjacinta"
 end
 
 if __FILE__ == $0
