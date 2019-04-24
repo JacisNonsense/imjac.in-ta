@@ -6,7 +6,7 @@ require_relative 'config/application'
 Rails.application.load_tasks
 
 def get_docker_tag
-  "#{`git rev-parse --short HEAD`.strip}#{`git diff --quiet || echo -dirty`.strip}"
+  "#{`git rev-parse --short HEAD`.strip}#{`git diff HEAD --quiet || echo -dirty`.strip}"
 end
 
 def get_docker_img
@@ -61,6 +61,7 @@ namespace :docker do
   end
 
   task :deploy do
+    raise "Can't deploy on a dirty working dir!" if get_docker_tag.include? "--dirty"
     exec_machine "IMJACINTA_VERSION=#{get_docker_tag} docker stack deploy --compose-file=docker-compose-prod.yml imjacinta"
   end
 
