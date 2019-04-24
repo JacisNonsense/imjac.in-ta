@@ -25,7 +25,7 @@ def exec_machine command
 
   command = "/bin/bash -c \"eval \\\"$(docker-machine env #{name})\\\" && #{command}\""
   puts command
-  exec command
+  # exec command
 end
 
 def create_deployment
