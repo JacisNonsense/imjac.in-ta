@@ -41,7 +41,7 @@ services:
     environment:
       <<: *commonenv
     deploy:
-      replicas: 1
+      replicas: 2
       update_config:
         order: start-first
       restart_policy:

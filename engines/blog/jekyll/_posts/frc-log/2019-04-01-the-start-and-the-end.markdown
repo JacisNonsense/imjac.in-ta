@@ -3,6 +3,7 @@ layout: post
 title: "The Start (and the end) - Our story of multiple teams"
 date: 2019-05-04 12:00:00
 author: Jaci
+header-img: img/frc_blog/one-team/4788.png
 categories: frc, frc4788
 ---
 
