@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rouge", "1.11.1"
   s.add_dependency "minima", "~> 2.0"
   s.add_dependency "jekyll-feed", "0.11.0"
+  s.add_dependency "premailer-rails", "1.10.2"
 
   s.add_development_dependency "pg"
 end

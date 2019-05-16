@@ -1,0 +1,10 @@
+<h3>New Email Subscription</h3>
+<p> Get an email everytime there's a new post! </p>
+
+<%= form_for @new_subscription, url: { action: 'subscribe' } do |f| %>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+  <%= f.submit "Subscribe!" %>
+<% end %>
+
+<a href="/ta"> Nevermind, Go Back Home... </a>

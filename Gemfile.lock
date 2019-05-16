@@ -19,6 +19,7 @@ PATH
       jekyll-paginate-multiple (= 0.1.0)
       kramdown (= 1.15.0)
       minima (~> 2.0)
+      premailer-rails (= 1.10.2)
       rails (= 5.2.3)
       rouge (= 1.11.1)
 
@@ -116,6 +117,8 @@ GEM
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     crass (1.0.4)
+    css_parser (1.7.0)
+      addressable
     declarative (0.0.10)
     declarative-option (0.1.0)
     devise (4.6.2)
@@ -165,6 +168,7 @@ GEM
       multi_json (~> 1.11)
       os (>= 0.9, < 2.0)
       signet (~> 0.7)
+    htmlentities (4.3.4)
     httpclient (2.8.3)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
@@ -238,6 +242,13 @@ GEM
       forwardable-extended (~> 2.6)
     pg (1.1.4)
     popper_js (1.14.5)
+    premailer (1.11.1)
+      addressable
+      css_parser (>= 1.6.0)
+      htmlentities (>= 4.0.0)
+    premailer-rails (1.10.2)
+      actionmailer (>= 3, < 6)
+      premailer (~> 1.7, >= 1.7.9)
     prometheus-client (0.9.0)
       quantile (~> 0.2.1)
     public_suffix (3.0.3)

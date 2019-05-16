@@ -1,0 +1,14 @@
+I'm Jac.in/ta - New Posts
+=========================
+Don't want this? Unsubscribe: https://imjac.in/ta/unsubscribe/<%= @subscription.unsubscribe_token %>
+
+<% @articles.each do |art| %>
+<% url_tail = art.file.match(/[\w-]+\/\d+-\d+-\d+-(.*)\.markdown/).captures[0] %>
+<% url = "https://imjac.in/ta/post/#{art.publish_time.strftime "%Y/%m/%d"}/#{url_tail}.html"%>
+======================================================================
+<%= art.title %>
+<%= url %>
+<%= ActionView::Base.full_sanitizer.sanitize(art.excerpt).strip %>
+======================================================================
+
+<% end %>

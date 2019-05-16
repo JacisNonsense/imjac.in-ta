@@ -1,0 +1,28 @@
+<h3> I'm Jac.in/ta - New Posts </h3>
+<p> Don't want this? <a href="https://imjac.in/ta/unsubscribe/<%= @subscription.unsubscribe_token %>"> Unsubscribe </a> </p>
+<div class="home">
+  <div class="post-list">
+    <% @articles.group_by(&:blog).each do |blog, arts| %>
+      <h5><%= blog == "frc-log" ? "Jaci's FRC Blog" : "I'm Jac.in/ta" %></h5>
+      <% arts.each do |art| %>
+        <% url_tail = art.file.match(/[\w-]+\/\d+-\d+-\d+-(.*)\.markdown/).captures[0] %>
+        <% url = "https://imjac.in/ta/post/#{art.publish_time.strftime "%Y/%m/%d"}/#{url_tail}.html"%>
+        <div class="post-container">
+          <div class="post-main">
+              <h3 class="post-link">
+                <a class="post-link" href="<%= url %>"><%= art.title %></a>
+              </h3>
+              <span class="post-meta"><%= art.publish_time.strftime "%b %-d, %Y" %></span>
+          </div>
+          <div class="excerpt"><%= raw(art.excerpt) %></div>
+          <div class="tags">
+            <% art.categories.split(",").each do |cat| %>
+              <a class="tags">#<%= cat.strip %>&nbsp;</a>
+            <% end %>
+          </div>
+          <a class="read-more button button-primary" href="<%= url %>">Read More</a>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

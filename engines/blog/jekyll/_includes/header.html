@@ -9,6 +9,7 @@
     {% endfor %}
 
     <div style="float: right;">
+      <a class="button button-clear" href="/ta/subscribe"> Subscribe </a>
       {% for page in pages %}
         {% if page.title and page.menu and page.menu != "main" %}
         <a class="button button-clear" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
