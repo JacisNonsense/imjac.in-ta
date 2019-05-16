@@ -5,7 +5,7 @@ module Blog
     queue_as :default
 
     # Only consider posts within the last X days
-    DATE_THRESH = 300
+    DATE_THRESH = 5
     NUMBER_OF_POSTS_MAX = 3
 
     def perform

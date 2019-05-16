@@ -3,11 +3,18 @@ module Blog
     require 'jekyll'
     require 'fileutils'
     require 'premailer/rails'
+    require 'sidekiq/enqueuer'
 
     isolate_namespace Blog
 
     initializer "blog.precompile" do |app|
       app.config.assets.precompile << %w( blog/email-milligram.css )
+    end
+
+    initializer "sidekiq-enqueue" do |app|
+      Sidekiq::Enqueuer.configure do |cfg|
+        cfg.jobs = [UpdateArticlesListJob, SendTestEmailJob]
+      end
     end
 
     if defined?(::Rails::Server)

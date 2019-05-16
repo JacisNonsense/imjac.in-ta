@@ -9,7 +9,7 @@ module Blog
     # From jekyll/document.rb
     YAML_FRONT_MATTER_REGEXP = %r!\A(---\s*\n.*?\n?)^((---|\.\.\.)\s*$\n?)!m.freeze
 
-    def perform(*args)
+    def perform
       dir = Blog::Engine.root.join("jekyll/_posts")
       has_new_articles = false
       Dir.glob("#{dir}/**/*").select { |x| File.file?(x) }.each do |post|
