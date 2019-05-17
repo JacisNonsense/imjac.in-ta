@@ -83,6 +83,9 @@ services:
   # Reverse Proxy
   traefik:
     image: traefik:alpine
+    configs:
+      - source: traefik.toml.10
+        target: /etc/traefik/traefik.toml
     ports:
       - "80:80"
       - "443:443"
