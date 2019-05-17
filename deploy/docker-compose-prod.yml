@@ -9,7 +9,7 @@ x-commonenv: &commonenv
   GCS_CREDS: /run/secrets/gcscreds
 
 configs:
-  traefik.toml.2:
+  traefik.toml.3:
     file: ./traefik.toml
   prometheus.yml:
     file: ./prometheus.yml
@@ -75,7 +75,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - traefik_acme:/acme
     configs:
-      - source: traefik.toml.2
+      - source: traefik.toml.3
         target: /etc/traefik/traefik.toml
     networks:
       - proxy
@@ -140,6 +140,18 @@ services:
       - opendkim_private
     networks:
       - backend
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+  # Etcd (for storing HTTPS certs)
+  etcd:
+    image: bitnami/etcd
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes # It's on a private backend network, no need to auth
+    networks:
+      - backend
+      - proxy
     deploy:
       replicas: 1
       restart_policy:

@@ -15,6 +15,11 @@ defaultEntryPoints = ["http", "https"]
   watch = true
   swarmMode = true
 
+[etcd]
+endpoint = "etcd:2379"
+watch = true
+prefix = "/traefik"
+
 [acme]
 email = "jaci.brunning@gmail.com"
 entryPoint = "https"
