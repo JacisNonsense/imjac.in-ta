@@ -17,9 +17,7 @@ defaultEntryPoints = ["http", "https"]
 
 [etcd]
 endpoint = "etcd:2379"
-watch = true
 prefix = "/traefik"
-useAPIV3 = true
 
 [acme]
 email = "jaci.brunning@gmail.com"
