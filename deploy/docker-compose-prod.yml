@@ -41,7 +41,7 @@ services:
     environment:
       <<: *commonenv
     deploy:
-      replicas: 2
+      replicas: 1
       update_config:
         order: start-first
       restart_policy:
@@ -131,6 +131,19 @@ services:
       - backend
     deploy:
       replicas: 1
+  # Mailer
+  mailer:
+    image: jaci/postfix:1.1
+    environment:
+      - DOMAIN=imjac.in
+    secrets:
+      - opendkim_private
+    networks:
+      - backend
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
   # Data analytics
   prometheus:
     image: prom/prometheus
@@ -185,4 +198,6 @@ secrets:
   gcscreds:
     external: true
   master:
+    external: true
+  opendkim_private:
     external: true
