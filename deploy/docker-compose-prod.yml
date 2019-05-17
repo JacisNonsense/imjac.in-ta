@@ -133,7 +133,7 @@ services:
       replicas: 1
   # Mailer
   mailer:
-    image: jaci/postfix:1.1
+    image: jaci/postfix:1.2
     environment:
       - DOMAIN=imjac.in
     secrets:
