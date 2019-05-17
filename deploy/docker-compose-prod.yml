@@ -95,7 +95,7 @@ services:
     networks:
       - proxy
     depends_on:
-      - etcd
+      - traefik_setup
     deploy: 
       replicas: 1
       placement:
