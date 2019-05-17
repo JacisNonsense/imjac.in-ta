@@ -9,7 +9,7 @@ x-commonenv: &commonenv
   GCS_CREDS: /run/secrets/gcscreds
 
 configs:
-  traefik.toml.3:
+  traefik.toml.4:
     file: ./traefik.toml
   prometheus.yml:
     file: ./prometheus.yml
@@ -75,10 +75,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - traefik_acme:/acme
     configs:
-      - source: traefik.toml.3
+      - source: traefik.toml.4
         target: /etc/traefik/traefik.toml
     networks:
       - proxy
+    depends_on:
+      - etcd
     deploy: 
       replicas: 1
       placement:
