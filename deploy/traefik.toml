@@ -23,7 +23,7 @@ prefix = "/traefik"
 email = "jaci.brunning@gmail.com"
 entryPoint = "https"
 onHostRule = true
-storage = "/acme/acme.json"
+storage = "traefik/acme/account"
 
 [acme.httpChallenge]
 entryPoint = 'http'
