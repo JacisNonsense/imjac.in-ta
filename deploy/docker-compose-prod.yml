@@ -164,11 +164,10 @@ services:
   # Etcd (for storing HTTPS certs)
   etcd:
     image: bitnami/etcd
-    command: /usr/local/bin/etcd --data-dir=/etcd-data
     environment:
       - ALLOW_NONE_AUTHENTICATION=yes # It's on a private backend network, no need to auth
     volumes:
-      - etcd_data:/etcd-data
+      - etcd_data:/bitnami
     networks:
       - backend
       - proxy
