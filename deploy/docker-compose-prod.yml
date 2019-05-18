@@ -9,7 +9,7 @@ x-commonenv: &commonenv
   GCS_CREDS: /run/secrets/gcscreds
 
 configs:
-  traefik.toml.11:
+  traefik.toml.12:
     file: ./traefik.toml
   prometheus.yml:
     file: ./prometheus.yml
@@ -70,7 +70,7 @@ services:
     image: traefik:alpine
     command: storeconfig
     configs:
-      - source: traefik.toml.11
+      - source: traefik.toml.12
         target: /etc/traefik/traefik.toml
     depends_on: 
       - etcd
@@ -84,7 +84,7 @@ services:
   traefik:
     image: traefik:alpine
     configs:
-      - source: traefik.toml.11
+      - source: traefik.toml.12
         target: /etc/traefik/traefik.toml
     ports:
       - "80:80"
