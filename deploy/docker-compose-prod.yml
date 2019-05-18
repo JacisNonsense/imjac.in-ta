@@ -167,7 +167,7 @@ services:
     environment:
       - ALLOW_NONE_AUTHENTICATION=yes # It's on a private backend network, no need to auth
     volumes:
-      - etcd_data:/bitnami
+      - etcd_data:/opt/bitnami
     networks:
       - backend
       - proxy
