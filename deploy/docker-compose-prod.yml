@@ -150,7 +150,7 @@ services:
       replicas: 1
   # Mailer
   mailer:
-    image: jaci/postfix:1.3
+    image: jaci/postfix:1.4
     environment:
       - DOMAIN=imjac.in
       - ETCD=etcd:2379
