@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Introducting: The Mailing List"
+title: "Introducing: The Mailing List"
 date: 2019-05-20 20:40:00
 author: Jaci
 categories: misc
