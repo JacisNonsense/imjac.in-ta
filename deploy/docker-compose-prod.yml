@@ -226,7 +226,6 @@ volumes:
   grafana:
   redis:
   etcd_data:
-  smtp_passwd:
 
 secrets:
   dbpass:
@@ -238,4 +237,6 @@ secrets:
   master:
     external: true
   opendkim_private:
+    external: true
+  smtp_passwd:
     external: true
