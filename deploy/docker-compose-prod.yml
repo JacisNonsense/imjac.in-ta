@@ -150,13 +150,14 @@ services:
       replicas: 1
   # Mailer
   mailer:
-    image: jaci/postfix:1.6
+    image: jaci/postfix:1.7
     environment:
       - DOMAIN=imjac.in
       - ETCD=etcd:2379
       - ACME_STORAGE=traefik/acme/account
     secrets:
       - opendkim_private
+      - smtp_passwd
     networks:
       - backend
     deploy:
@@ -225,6 +226,7 @@ volumes:
   grafana:
   redis:
   etcd_data:
+  smtp_passwd:
 
 secrets:
   dbpass:
