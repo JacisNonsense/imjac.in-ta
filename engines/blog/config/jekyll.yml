@@ -17,7 +17,7 @@ paginate_multiple:
     sub_dir: '/frc-log'
   - paginate: 10
     paginate_path: '/:num/'
-    sub_dir: '/main'
+    sub_dir: '__ALL__'
 
 permalink: "/post/:year/:month/:day/:title.html"
 future: true
