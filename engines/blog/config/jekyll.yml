@@ -5,7 +5,8 @@ description: > # this means to ignore newlines until "baseurl:"
   I write code for people who write code for people who drive robots.
 baseurl: "/ta"
 url: "https://imjac.in" # the base hostname & protocol for your site
-twitter_username: JacisNonsense
+
+linkedin_username: jacibrunning
 github_username:  JacisNonsense
 
 #paginate: 9
