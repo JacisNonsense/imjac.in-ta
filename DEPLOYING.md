@@ -31,7 +31,7 @@ docker stack deploy --compose-file=portainer-agent-stack.yml portainer
 - Create your deployment: `rake docker:create_deployment ip=<remote ip>`
 
 ## 4. Setting the secrets
-You can deploy the secrets my logging into portainer and setting the following secrets:
+You can deploy the secrets by logging into portainer and setting the following secrets:
 - dbpass: The database password
 - secretkeybase: The secret key base for Rails, used as the base for many crypto functions
 - gcscreds: The credentials for Google Cloud Storage, from the Google Cloud Console
