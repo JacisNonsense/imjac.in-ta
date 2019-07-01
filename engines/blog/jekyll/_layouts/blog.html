@@ -5,7 +5,7 @@ layout: default
 
   <div class="post-list">
     {% for post in paginator.posts %}
-      {% unless post.ignore %}
+      {% unless post.hidden %}
         <div class="post-container">
           <div class="post-main">
               <h3 class="post-link">

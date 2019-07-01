@@ -7,6 +7,10 @@
   {% capture og_desc %}{% if page.subtitle %}{{ page.subtitle | strip_newlines }}{% elsif page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 100 }}{% else %}{{ site.description | strip_newlines }}{% endif %}{% endcapture %}
   {% capture og_url %}{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}{% endcapture %}
   
+  {% if page.hidden %}
+  <meta name="robots" content="noindex">
+  {% endif %}
+
   <title>{{ og_title }}</title>
 
   {% if page.header-img %}
