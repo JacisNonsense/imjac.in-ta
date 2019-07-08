@@ -101,7 +101,7 @@ services:
       placement:
         constraints: [node.role == manager]
   # Database Engine
-  # TODO: Need to manage replication if scaling application. Perhaps Mongo might be a good shout?
+  # TODO: Other databases need to be manually created when they're needed.
   db:
     image: postgres:9.6-alpine
     environment:
@@ -214,8 +214,8 @@ services:
       - backend
   # --- OTHER WEBAPPS ----
   curtincourses_setup:
-    image: jaci/curtin-courses:fb12613
-    command: bin/rails db:migrate
+    image: jaci/curtin-courses:5b0e8d1
+    command: bin/rails db:create db:migrate
     environment:
       <<: *commonenv
     deploy:
@@ -232,7 +232,7 @@ services:
     networks:
       - backend
   curtincourses:
-    image: jaci/curtin-courses:fb12613
+    image: jaci/curtin-courses:5b0e8d1
     command: bundle exec rails s -p 3000 -b 0.0.0.0
     environment:
       <<: *commonenv
