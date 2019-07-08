@@ -214,7 +214,7 @@ services:
       - backend
   # --- OTHER WEBAPPS ----
   curtincourses_setup:
-    image: jaci/curtin-courses:ff9bd96
+    image: jaci/curtin-courses:fb12613
     command: bin/rails db:migrate
     environment:
       <<: *commonenv
@@ -232,7 +232,7 @@ services:
     networks:
       - backend
   curtincourses:
-    image: jaci/curtin-courses:ff9bd96
+    image: jaci/curtin-courses:fb12613
     command: bundle exec rails s -p 3000 -b 0.0.0.0
     environment:
       <<: *commonenv
