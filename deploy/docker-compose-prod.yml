@@ -259,6 +259,23 @@ services:
     networks:
       - proxy
       - backend
+  curtincourses_sidekiq:
+    image: jaci/curtin-courses:5b0e8d1
+    command: bundle exec sidekiq
+    environment:
+      <<: *commonenv
+    secrets:
+      - master
+      - dbpass
+      - secretkeybase
+      - gcscreds
+    depends_on:
+      - redis
+      - curtincourses
+    networks:
+      - backend
+    deploy:
+      replicas: 1
 
    
 
