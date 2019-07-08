@@ -212,6 +212,53 @@ services:
     networks:
       - proxy
       - backend
+  # --- OTHER WEBAPPS ----
+  curtincourses_setup:
+    image: jaci/curtin-courses:1cc7e6e
+    command: bin/rails db:migrate
+    environment:
+      <<: *commonenv
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    secrets:
+      - dbpass
+      - secretkeybase
+      - gcscreds
+      - master
+    depends_on:
+      - db
+    networks:
+      - backend
+  curtincourses:
+    image: jaci/curtin-courses:1cc7e6e
+    command: bundle exec rails s -p 3000 -b 0.0.0.0
+    environment:
+      <<: *commonenv
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      labels:
+        - "traefik.frontend.rule=Host:curtincourses.imjac.in"
+        - "traefik.docker.network=traefik_proxy"
+        - "traefik.port=3000"
+    secrets:
+      - dbpass
+      - secretkeybase
+      - gcscreds
+      - master
+    healthcheck:
+      test: curl --fail localhost:3000 || exit 1
+      timeout: 10s
+      interval: 20s
+    depends_on:
+      - db
+      - curtincourses_setup
+    networks:
+      - proxy
+      - backend
 
    
 
