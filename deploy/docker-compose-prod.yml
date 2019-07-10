@@ -214,7 +214,7 @@ services:
       - backend
   # --- OTHER WEBAPPS ----
   curtincourses_setup:
-    image: jaci/curtin-courses:b842921
+    image: jaci/curtin-courses:d949faf
     command: bin/rails db:create db:migrate
     environment:
       <<: *commonenv
@@ -232,7 +232,7 @@ services:
     networks:
       - backend
   curtincourses:
-    image: jaci/curtin-courses:b842921
+    image: jaci/curtin-courses:d949faf
     command: bundle exec rails s -p 3000 -b 0.0.0.0
     environment:
       <<: *commonenv
@@ -260,7 +260,7 @@ services:
       - proxy
       - backend
   curtincourses_sidekiq:
-    image: jaci/curtin-courses:b842921
+    image: jaci/curtin-courses:d949faf
     command: bundle exec sidekiq
     environment:
       <<: *commonenv
