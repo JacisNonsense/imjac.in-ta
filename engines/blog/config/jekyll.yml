@@ -1,8 +1,8 @@
 # Site settings
-title: I'm Jac.in/ta
+title: I'm Jac.in/ta - Jaci Brunning
 email: jaci.brunning@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  I write code for people who write code for people who drive robots.
+  Personal Website of Jaci Brunning
 baseurl: "/ta"
 url: "https://imjac.in" # the base hostname & protocol for your site
 
