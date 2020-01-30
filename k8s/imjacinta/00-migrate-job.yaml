@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: imjacinta-migrate
-  namespace: imjacinta
+  namespace: web
 spec:
   backoffLimit: 0
   parallelism: 1
