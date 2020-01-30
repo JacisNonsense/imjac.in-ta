@@ -1,8 +1,0 @@
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: imjacinta-ingress
-spec:
-  backend:
-    serviceName: imjacinta-web
-    servicePort: 3000

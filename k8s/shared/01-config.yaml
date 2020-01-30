@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config
+  namespace: imjacinta
+data:
+  POSTGRES_DB: imjacinta_prod
+  RAILS_ENV: production
+  RAILS_SERVE_STATIC_FILES: 'true'
+  GCS_CREDS: /etc/gcs/key.json
+  NO_SSL: 'true' # TODO: 

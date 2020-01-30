@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: curtin-courses-sidekiq
+  namespace: imjacinta
+spec:
+  selector:
+    matchLabels:
+      run: curtin-courses-sidekiq
+      tier: back
+  template:
+    metadata:
+      labels:
+        run: curtin-courses-sidekiq
+        tier: back
+    spec:
+      containers:
+      - name: curtin-courses-sidekiq
+        image: jaci/curtin-courses:66cc100
+        args: [bundle, exec, sidekiq]
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - secretRef:
+            name: db-secrets
+        - secretRef:
+            name: rails-secrets # RAILS_MASTER_KEY, SECRET_KEY_BASE
+        - configMapRef:
+            name: config
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: gcs
+          mountPath: /etc/gcs
+          readOnly: true
+      volumes:
+      - name: gcs
+        secret:
+          secretName: gcs-creds

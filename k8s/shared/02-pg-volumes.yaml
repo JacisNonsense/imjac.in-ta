@@ -1,0 +1,23 @@
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: retain-gce
+# provisioner: kubernetes.io/gce-pd
+# reclaimPolicy: Retain
+
+# ---
+
+ # TODO:
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db-data
+  namespace: imjacinta
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
+  # storageClassName: retain-gce

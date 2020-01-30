@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: imjacinta-nginx-test
+  labels:
+    app: imjacinta
+spec:
+  ports: 
+    - port: 7777
+      targetPort: 80
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: imjacinta-nginx-test
+  labels:
+    app: imjacinta
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: imjacinta
+      tier: app
+  template:
+    metadata:
+      name: imjacinta-nginx-test
+      labels:
+        app: imjacinta
+        tier: app
+    spec:
+      containers:
+      - name: imjacinta-nginx-test
+        image: nginx
+        ports:
+        - containerPort: 80
