@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config
+  namespace: web
+data:
+  POSTGRES_DB: {{ .Values.db.name }}
+  RAILS_ENV: {{ .Values.rails_env }}
+  RAILS_SERVE_STATIC_FILES: 'true'
+  {{ if and (hasKey .Values "insecure") (eq .Values.insecure true) -}}
+  NO_SSL: 'true'  # TODO:
+  {{ end -}}

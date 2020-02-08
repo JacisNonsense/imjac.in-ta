@@ -25,4 +25,3 @@ spec:
             name: rails-secrets # RAILS_MASTER_KEY, SECRET_KEY_BASE
         - configMapRef:
             name: config
-        

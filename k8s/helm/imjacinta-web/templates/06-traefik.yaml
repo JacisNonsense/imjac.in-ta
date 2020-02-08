@@ -1,0 +1,49 @@
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: traefik-ingress-controller
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: traefik
+  labels:
+    run: traefik
+    tier: lb
+
+spec:
+  replicas: 1
+  # Ensure we can roll an update if ports already exist
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      run: traefik
+      tier: lb
+  template:
+    metadata:
+      labels:
+        run: traefik
+        tier: lb
+    spec:
+      serviceAccountName: traefik-ingress-controller
+      containers:
+        - name: traefik
+          image: traefik:v2.1
+          args:
+            - --log.level=INFO
+            - --api
+            - --api.insecure
+            - --entrypoints.web.address=:80
+            - --providers.kubernetescrd
+          ports:
+            - name: web
+              containerPort: 80
+              hostPort: 80
+            - name: admin
+              containerPort: 8080
+              hostPort: 8000

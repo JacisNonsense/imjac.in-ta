@@ -1,0 +1,16 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: "{{ .Values.name }}-ingress-route"
+  namespace: web
+
+spec:
+  entryPoints:
+    - web
+  
+  routes:
+  - match: HostRegexp(`{{ .Values.subdomain }}{host:.*}`)
+    kind: Rule
+    services:
+    - name: {{ .Values.name }}
+      port: {{ .Values.port }}

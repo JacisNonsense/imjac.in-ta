@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  namespace: web
+spec:
+  selector:
+    matchLabels:
+      run: {{ .Values.name }}
+      tier: app
+  template:
+    metadata:
+      labels:
+        run: {{ .Values.name }}
+        tier: app
+    spec:
+      containers:
+      - name: {{ .Values.name }}
+        args: [bundle, exec, rails, s, "-p", "{{ .Values.port }}", "-b", "0.0.0.0"]
+        ports:
+        - containerPort: {{ .Values.port }}
+        {{ include "pod.template.spec.container.rails" . | nindent 8 }}
+      {{ if eq .Values.gcs true -}}
+      volumes:
+      - name: gcs
+        secret:
+          secretName: gcs-creds
+      {{- end -}}

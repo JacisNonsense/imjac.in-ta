@@ -1,0 +1,8 @@
+db:
+  name: 'imjacinta_prod'
+  user: web
+  # password: test    # TODO: Build tool substitutes this
+  size: 3Gi
+
+rails_env: 'production'
+insecure: true

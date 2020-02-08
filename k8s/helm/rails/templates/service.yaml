@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}
+  namespace: web
+spec:
+  ports:
+  - port: {{ .Values.port }}
+  selector:
+    run: {{ .Values.name }}
+    tier: app
+  type: ClusterIP
