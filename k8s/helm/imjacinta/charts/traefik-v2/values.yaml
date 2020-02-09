@@ -1,0 +1,22 @@
+image:
+  name: traefik
+  tag: v2.1
+
+replicas: 1
+logLevel: INFO
+
+rollingUpdate:
+  maxUnavailable: 1 # Required if using hostPort, as we need to be able to kill off old pods
+
+entrypoints:
+  web:
+    containerPort: 80
+    hostPort: 80
+  websecure:
+    containerPort: 443
+    hostPort: 443
+
+api:
+  dashboard: true
+  apiMatch: HostRegexp(`traefik{host:.*}`) && PathPrefix(`/api`)
+  dashboardMatch: HostRegexp(`traefik{host:.*}`) && PathPrefix(`/`)

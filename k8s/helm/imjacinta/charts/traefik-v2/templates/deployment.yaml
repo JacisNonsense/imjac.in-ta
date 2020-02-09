@@ -1,0 +1,46 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ template "traefikv2.fullname" . }}
+  labels:
+    app: {{ template "traefikv2.name" . }}
+    chart: {{ template "traefikv2.chart" . }}
+    release: {{ .Release.Name | quote }}
+
+spec:
+  replicas: {{ default 1 .Values.replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+    {{- with .Values.rollingUpdate }}
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+  selector:
+    matchLabels:
+      app: {{ template "traefikv2.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "traefikv2.name" . }}
+        chart: {{ template "traefikv2.chart" . }}
+        release: {{ .Release.Name | quote }}
+    spec:
+      serviceAccountName: {{ template "traefikv2.fullname" . }}
+
+      containers:
+        - name: {{ template "traefikv2.fullname" . }}
+          image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+          args:
+            - --log.level={{ .Values.logLevel }}
+            - --providers.kubernetescrd
+            - --api.dashboard={{ .Values.api.dashboard }}
+            {{- range $name, $config := .Values.entrypoints }}
+            - "--entryPoints.{{$name}}.address=:{{ $config.containerPort }}"
+            {{- end }}
+          ports:
+          {{- range $name, $config := .Values.entrypoints }}
+            - name: {{ $name | quote }}
+              {{- toYaml $config | nindent 14 }}
+          {{- end }}
+          

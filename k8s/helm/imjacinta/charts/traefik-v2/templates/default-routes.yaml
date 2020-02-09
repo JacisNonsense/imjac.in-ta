@@ -1,0 +1,42 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ template "traefikv2.fullname" . }}-dashboard
+  labels:
+    app: {{ template "traefikv2.name" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name | quote }}
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+  - match: {{ .Values.api.apiMatch }}
+    kind: Rule
+    # middlewares:Prefix
+    # - name: {{ template "traefikv2.fullname" . }}-dashboard-auth
+    services:
+    - name: api@internal
+      kind: TraefikService
+  - match: {{ .Values.api.dashboardMatch }}
+    kind: Rule
+    # middlewares:
+    # - name: {{ template "traefikv2.fullname" . }}-dashboard-auth
+    services:
+    - name: dashboard@internal
+      kind: TraefikService
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: {{ template "traefikv2.fullname" . }}-dashboard-auth
+# spec:
+#   basicAuth:
+#     secret: {{ template "traefikv2.fullname" . }}-dashboard-secret
+# ---
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: {{ template "traefikv2.fullname" . }}-dashboard-secret
+# data:
+#   users: YWRtaW46JDJ5JDEwJEFYYnZnZUszdHJjalZ0RHJwMkw5UnVvM1NEaERkRG15a1hWVlQwT0NJbjFiNWEva1MuTWk2

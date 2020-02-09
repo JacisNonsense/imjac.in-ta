@@ -1,0 +1,24 @@
+db:
+  user: web
+  # https://hackernoon.com/the-art-of-the-helm-chart-patterns-from-the-official-kubernetes-charts-8a7cafa86d12
+  secret:
+    name: maria
+    key: mariadb-password
+
+mariadb-galera:
+  nameOverride: maria
+  replicaCount: 2
+  db:
+    user: web
+
+# TODO: Alpine
+redis:
+  usePassword: false
+  cluster:
+    slaveCount: 1
+  master:
+    persistence:
+      enabled: false
+  slave:
+    persistence:
+      enabled: false
