@@ -13,6 +13,6 @@ development:
 production:
   <<: *default
   database: imjacinta_prod
-  host: db
+  host: <%= ENV.fetch("POSTGRES_HOST") { "db" } %>
   username: <%= ENV['POSTGRES_USER'] %>
   password: <%= ENV['POSTGRES_PASSWORD'] %>
