@@ -1,9 +1,9 @@
 dependencies:
-- name: mariadb-galera
-  repository: https://charts.bitnami.com/bitnami
-  version: 0.6.9
+- name: postgresql
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 8.3.0
 - name: redis
   repository: https://kubernetes-charts.storage.googleapis.com/
   version: 10.4.1
-digest: sha256:df8bb6e1ed5ae91ccceb3082a86ed987694da706882a4885dd831f1a4f5d35c8
-generated: "2020-02-08T19:48:52.8678047+11:00"
+digest: sha256:005ab173ea73aeaabe79079ccd7e10441c6f5e71b5558cb84712d528735c0cf0
+generated: "2020-02-09T17:22:31.8994478+11:00"

@@ -1,0 +1,7 @@
+{{- $subdict := dict "name" "imjacinta" "valspec" .Values.imjacinta -}}
+{{- $dict := merge $subdict . -}}
+{{ template "rails.deployment" $dict }}
+---
+{{ template "rails.service" $dict }}
+---
+{{ template "rails.ingress" $dict }}

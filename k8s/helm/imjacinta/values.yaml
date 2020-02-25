@@ -1,15 +1,37 @@
 db:
-  user: web
+  user: postgres
+  host: postgresql
   # https://hackernoon.com/the-art-of-the-helm-chart-patterns-from-the-official-kubernetes-charts-8a7cafa86d12
   secret:
-    name: maria
-    key: mariadb-password
+    name: postgresql
+    key: postgresql-password
+    # name: maria
+    # key: mariadb-password
 
-mariadb-galera:
-  nameOverride: maria
-  replicaCount: 2
-  db:
-    user: web
+env: production
+insecure: true
+
+imjacinta:
+  ingress:
+    rule: HostRegexp(`{host:.*}`)
+  image:
+    name: jaci/imjacinta
+    tag: 74106a3
+
+curtincourses:
+  ingress:
+    rule: HostRegexp(`curtincourses{host:.*}`)
+  image:
+    name: jaci/curtin-courses
+    tag: 66cc100
+
+traefikv2:
+
+# mariadb-galera:
+#   nameOverride: maria
+#   replicaCount: 2
+#   db:
+#     user: web
 
 # TODO: Alpine
 redis:
