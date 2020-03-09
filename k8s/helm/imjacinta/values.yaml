@@ -1,7 +1,6 @@
 db:
   user: postgres
   host: postgresql
-  # https://hackernoon.com/the-art-of-the-helm-chart-patterns-from-the-official-kubernetes-charts-8a7cafa86d12
   secret:
     name: postgresql
     key: postgresql-password
@@ -36,8 +35,9 @@ traefikv2:
 # TODO: Alpine
 redis:
   usePassword: false
+  fullnameOverride: redis
   cluster:
-    slaveCount: 1
+    enabled: false
   master:
     persistence:
       enabled: false

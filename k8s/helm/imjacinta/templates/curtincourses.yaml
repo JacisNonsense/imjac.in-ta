@@ -1,6 +1,11 @@
 {{- $subdict := dict "name" "curtincourses" "valspec" .Values.curtincourses -}}
 {{- $dict := merge $subdict . -}}
+
+{{ template "rails.secret" $dict }}
+---
 {{ template "rails.deployment" $dict }}
+---
+{{ template "rails.sidekiq" $dict }}
 ---
 {{ template "rails.service" $dict }}
 ---

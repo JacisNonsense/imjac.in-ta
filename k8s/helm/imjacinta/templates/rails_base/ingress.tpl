@@ -3,6 +3,10 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: {{ template "rails.fullname" . }}
+  labels:
+    app: {{ template "rails.name" . }}
+    chart: {{ template "imjacinta.chart" . }}
+    release: {{ .Release.Name | quote }}
 
 spec:
   entryPoints:

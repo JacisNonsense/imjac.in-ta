@@ -2,6 +2,10 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ template "imjacinta.fullname" . }}
+  labels:
+    app: {{ template "imjacinta.name" . }}
+    chart: {{ template "imjacinta.chart" . }}
+    release: {{ .Release.Name | quote }}
 data:
   POSTGRES_USER: {{ .Values.db.user }}
   POSTGRES_HOST: {{ .Release.Name }}-{{ .Values.db.host }}

@@ -13,9 +13,15 @@ envFrom:
     name: {{ template "imjacinta.fullname" . }}
 env:
 - name: SECRET_KEY_BASE
-  value: abcdefg
+  valueFrom:
+    secretKeyRef:
+      name: {{ template "rails.fullname" . }}
+      key: secret_key_base
 - name: RAILS_MASTER_KEY
-  value: the_master_key
+  valueFrom:
+    secretKeyRef:
+      name: {{ template "rails.fullname" . }}
+      key: master_key
 - name: POSTGRES_PASSWORD
   valueFrom:
     secretKeyRef:
