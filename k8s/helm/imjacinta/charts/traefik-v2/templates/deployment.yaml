@@ -27,10 +27,15 @@ spec:
         release: {{ .Release.Name | quote }}
     spec:
       serviceAccountName: {{ template "traefikv2.fullname" . }}
-
+      nodeSelector:
+      {{- with .Values.nodeSelector }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ template "traefikv2.fullname" . }}
           image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+          resources:
+            {{ toYaml .Values.resources | nindent 12 }}
           args:
             - --log.level={{ .Values.logLevel }}
             - --providers.kubernetescrd
@@ -43,4 +48,3 @@ spec:
             - name: {{ $name | quote }}
               {{- toYaml $config | nindent 14 }}
           {{- end }}
-          

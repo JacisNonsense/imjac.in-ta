@@ -23,10 +23,14 @@ spec:
       initContainers:
       - name: {{ template "rails.fullname" . }}-migrate
         args: [bundle, exec, rails, "db:create", "db:migrate"]
+        resources:
+          {{ toYaml .valspec.resources | nindent 10 }}
         {{ include "rails.container.spec" . | nindent 8 }}
       containers:
       - name: {{ template "rails.fullname" . }}
         args: [bundle, exec, rails, s, "-p", "3000", "-b", "0.0.0.0"]
+        resources:
+          {{ toYaml .valspec.resources | nindent 10 }}
         ports:
         - containerPort: 3000
         {{ include "rails.container.spec" . | nindent 8 }}

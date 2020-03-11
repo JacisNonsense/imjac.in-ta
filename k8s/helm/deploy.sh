@@ -3,6 +3,7 @@
 KEY=$(cat secrets.key 2> /dev/null || echo "")
 ENC_FILE="secrets.enc"
 UNENC_FILE="/tmp/imjacinta_deploy_secrets.unenc"
+INSECURE="false"
 
 POSITIONAL=()
 while [[ $# -gt 0 ]]
@@ -20,6 +21,10 @@ do
       ;;
     --debug)
       set -x
+      shift
+      ;;
+    --development)
+      INSECURE="true"
       shift
       ;;
     *)
@@ -48,7 +53,9 @@ DEFAULT_SECRETS=(
   'secret_key_base="YOUR SECRET KEY HERE"'
   'imjacinta_master_key="YOUR MASTER KEY HERE"'
   'curtincourses_master_key="YOUR MASTER KEY HERE"'
+  'imjacinta_gcs="YOUR GCS JSON HERE (base64 encoded)"'
   'postgresql_password="YOUR PASSWORD HERE"'
+  'traefik_htpasswd="YOUR PASSWORD HERE"'
 )
 
 case $1 in
@@ -73,7 +80,10 @@ case $1 in
       --set secret_key_base="$secret_key_base" \
       --set imjacinta.master_key="$imjacinta_master_key" \
       --set curtincourses.master_key="$curtincourses_master_key" \
-      --set postgresql.postgresqlPassword="$postgresql_password"
+      --set postgresql.postgresqlPassword="$postgresql_password" \
+      --set imjacinta.gcs="$imjacinta_gcs" \
+      --set insecure="$INSECURE" \
+      --set traefik.htpasswd="$traefik_htpasswd"
     ;;
   uninstall)
     helm uninstall imjacinta

@@ -16,6 +16,16 @@ imjacinta:
   image:
     name: jaci/imjacinta
     tag: 74106a3
+  resources:
+    requests:
+      memory: 600Mi
+      cpu: 50m
+  sidekiq:
+    resources:
+      requests:
+        memory: 350Mi
+        cpu: 50m
+
 
 curtincourses:
   ingress:
@@ -23,8 +33,29 @@ curtincourses:
   image:
     name: jaci/curtin-courses
     tag: 66cc100
+  resources:
+    requests:
+      memory: 600Mi
+      cpu: 50m
+  sidekiq:
+    resources:
+      requests:
+        memory: 350Mi
+        cpu: 50m
 
-traefikv2:
+postgresql:
+  resources:
+    requests:
+      memory: 200Mi
+      cpu: 50m
+
+traefik:
+  resources:
+    requests:
+      memory: 100Mi
+      cpu: 50m
+  nodeSelector:
+    preempt: "false"
 
 # mariadb-galera:
 #   nameOverride: maria
@@ -41,6 +72,14 @@ redis:
   master:
     persistence:
       enabled: false
+    resources:
+      requests:
+        memory: 50Mi
+        cpu: 25m
   slave:
     persistence:
       enabled: false
+    resources:
+      requests:
+        memory: 50Mi
+        cpu: 25m

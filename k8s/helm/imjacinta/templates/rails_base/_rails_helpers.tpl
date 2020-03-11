@@ -27,6 +27,11 @@ env:
     secretKeyRef:
       name: {{ .Release.Name }}-{{ .Values.db.secret.name }}
       key: {{ .Values.db.secret.key }}
+- name: GCS_CREDS
+  valueFrom:
+    secretKeyRef:
+      name: {{ template "rails.fullname" . }}
+      key: gcs_creds_json
 {{- with .valspec.container }}
 {{- toYaml . | nindent 0 }}
 {{- end -}}

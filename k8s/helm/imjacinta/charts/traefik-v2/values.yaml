@@ -16,6 +16,13 @@ entrypoints:
     containerPort: 443
     hostPort: 443
 
+resources:
+  requests:
+    memory: 100Mi
+    cpu: 50m
+
+htpasswd: admin:$2y$10$VGrS48pf3mmT.C4TcZL8iO7bRSOlciGWoIORSpLyY/nSkvxVc77yS  # admin:admin
+
 api:
   dashboard: true
   apiMatch: HostRegexp(`traefik{host:.*}`) && PathPrefix(`/api`)
