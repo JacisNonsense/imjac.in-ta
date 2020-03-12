@@ -89,7 +89,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'mailer', 
+    address: ENV.fetch("MAILER_HOST") { 'mailer' }, 
     port: 587, 
     domain: 'imjac.in',
     openssl_verify_mode: OpenSSL::SSL::VERIFY_NONE

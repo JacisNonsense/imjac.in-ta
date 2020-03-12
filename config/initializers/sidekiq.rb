@@ -1,11 +1,11 @@
 require 'sidekiq/web'
 
 Sidekiq.configure_server do |cfg|
-  cfg.redis = { url: 'redis://redis:6379/0' }  
+  cfg.redis = { url: ENV.fetch("REDIS_URL") {'redis://redis:6379/0' } }  
 end
 
 Sidekiq.configure_client do |cfg|
-  cfg.redis = { url: 'redis://redis:6379/0' }
+  cfg.redis = { url: ENV.fetch("REDIS_URL") {'redis://redis:6379/0' } }
 end
 
 Sidekiq::Web.use(Rack::Auth::Basic) do |user, pass|

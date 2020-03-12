@@ -32,6 +32,8 @@ env:
     secretKeyRef:
       name: {{ template "rails.fullname" . }}
       key: gcs_creds_json
+- name: REDIS_URL
+  value: "redis://{{ template "redis.fullname" . }}-master:6379/{{ .valspec.redis_db | default 0 }}"
 {{- with .valspec.container }}
 {{- toYaml . | nindent 0 }}
 {{- end -}}
