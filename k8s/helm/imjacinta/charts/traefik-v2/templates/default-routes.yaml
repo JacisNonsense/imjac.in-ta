@@ -3,28 +3,59 @@ kind: IngressRoute
 metadata:
   name: {{ template "traefikv2.fullname" . }}-dashboard
   labels:
-    app: {{ template "traefikv2.name" . }}
+    app: {{ template "traefikv2.name" . }}-dashboard
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: {{ .Release.Name | quote }}
 spec:
   entryPoints:
-    - web
     - websecure
+  tls:
+    {{- if .Values.tls.enabled }}
+    certResolver: {{ .Values.tls.resolver }}
+    {{- end }}
   routes:
-  - match: {{ .Values.api.apiMatch }}
+  - match: Host(`{{ .Values.api.host }}`) && PathPrefix(`/api`)
     kind: Rule
     middlewares:
     - name: {{ template "traefikv2.fullname" . }}-dashboard-auth
     services:
     - name: api@internal
       kind: TraefikService
-  - match: {{ .Values.api.dashboardMatch }}
+  - match: Host(`{{ .Values.api.host }}`) && PathPrefix(`/`)
     kind: Rule
     middlewares:
     - name: {{ template "traefikv2.fullname" . }}-dashboard-auth
     services:
     - name: dashboard@internal
       kind: TraefikService
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ template "traefikv2.fullname" . }}-dashboard-insecure
+  labels:
+    app: {{ template "traefikv2.name" . }}-dashboard-insecure
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: {{ .Release.Name | quote }}
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`{{ .Values.api.host }}`)
+    kind: Rule
+    middlewares:
+    - name: https-upgrade
+    services:
+    - name: dashboard@internal
+      kind: TraefikService
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: https-upgrade
+spec:
+  redirectScheme:
+    scheme: https
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware

@@ -3,7 +3,7 @@
 KEY=$(cat secrets.key 2> /dev/null || echo "")
 ENC_FILE="secrets.enc"
 UNENC_FILE="/tmp/imjacinta_deploy_secrets.unenc"
-INSECURE="false"
+INSTALL_ARGS=()
 
 POSITIONAL=()
 while [[ $# -gt 0 ]]
@@ -23,8 +23,17 @@ do
       set -x
       shift
       ;;
+    --dry-run)
+      INSTALL_ARGS+=( --dry-run )
+      shift 
+      ;;
     --development)
-      INSECURE="true"
+      INSTALL_ARGS+=(--set insecure='true',traefik.tls.enabled='false')
+      shift
+      ;;
+    --install-arg)
+      INSTALL_ARGS+=("$2")
+      shift
       shift
       ;;
     *)
@@ -76,13 +85,12 @@ case $1 in
     ;;
   install)
     eval $(decrypt_file $ENC_FILE | grep -v '^#' | xargs)
-    helm upgrade --install imjacinta imjacinta \
+    helm upgrade "${INSTALL_ARGS[@]}" --install imjacinta imjacinta \
       --set secret_key_base="$secret_key_base" \
       --set imjacinta.master_key="$imjacinta_master_key" \
       --set curtincourses.master_key="$curtincourses_master_key" \
       --set postgresql.postgresqlPassword="$postgresql_password" \
       --set imjacinta.gcs="$imjacinta_gcs" \
-      --set insecure="$INSECURE" \
       --set traefik.htpasswd="$traefik_htpasswd"
     ;;
   uninstall)

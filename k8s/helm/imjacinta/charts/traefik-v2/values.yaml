@@ -25,5 +25,9 @@ htpasswd: admin:$2y$10$VGrS48pf3mmT.C4TcZL8iO7bRSOlciGWoIORSpLyY/nSkvxVc77yS  # 
 
 api:
   dashboard: true
-  apiMatch: HostRegexp(`traefik{host:.*}`) && PathPrefix(`/api`)
-  dashboardMatch: HostRegexp(`traefik{host:.*}`) && PathPrefix(`/`)
+  host: traefik.test
+
+tls:
+  enabled: true
+  resolver: default
+  email: your@email.here

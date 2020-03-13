@@ -8,40 +8,40 @@ db:
     # key: mariadb-password
 
 env: production
-insecure: true
+insecure: false
 
 imjacinta:
   ingress:
-    rule: HostRegexp(`{host:.*}`)
+    rule: Host(`staging.imjac.in`) || Host(`dev.staging.imjac.in`)
   image:
-    name: jaci/imjacinta
-    tag: 74106a3
+    name: gcr.io/imjacinta/jaci/imjacinta
+    tag: da8c56b-dirty
   resources:
     requests:
-      memory: 600Mi
+      memory: 400Mi
       cpu: 50m
   sidekiq:
     resources:
       requests:
-        memory: 350Mi
+        memory: 400Mi
         cpu: 50m
   redis_db: 0
 
 
 curtincourses:
   ingress:
-    rule: HostRegexp(`curtincourses{host:.*}`)
+    rule: Host(`curtincourses.staging.imjac.in`)
   image:
     name: jaci/curtin-courses
-    tag: 66cc100
+    tag: 9a39392
   resources:
     requests:
-      memory: 600Mi
+      memory: 400Mi
       cpu: 50m
   sidekiq:
     resources:
       requests:
-        memory: 350Mi
+        memory: 400Mi
         cpu: 50m
   redis_db: 1
 
@@ -50,8 +50,15 @@ postgresql:
     requests:
       memory: 200Mi
       cpu: 50m
+  persistence:
+    size: 4Gi
 
 traefik:
+  api:
+    host: traefik.staging.imjac.in
+  tls:
+    enabled: true
+    email: 'jaci.brunning@gmail.com'
   resources:
     requests:
       memory: 100Mi

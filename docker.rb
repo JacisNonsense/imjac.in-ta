@@ -1,7 +1,7 @@
 require 'fileutils'
 
 DOCKER_TAG="#{`git rev-parse --short HEAD`.strip}#{`git diff HEAD --quiet || echo -dirty`.strip}"
-DOCKER_IMG="jaci/imjacinta:#{DOCKER_TAG}"
+DOCKER_IMG="gcr.io/imjacinta/jaci/imjacinta:#{DOCKER_TAG}"
 
 def copy_deps
   FileUtils.mkdir_p 'build/depslayer'

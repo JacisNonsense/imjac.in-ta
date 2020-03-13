@@ -43,6 +43,11 @@ spec:
             {{- range $name, $config := .Values.entrypoints }}
             - "--entryPoints.{{$name}}.address=:{{ $config.containerPort }}"
             {{- end }}
+            {{- if .Values.tls.enabled }}
+            - "--certificatesResolvers.{{ .Values.tls.resolver }}.acme.storage=/acme.json"
+            - "--certificatesResolvers.{{ .Values.tls.resolver }}.acme.email={{ .Values.tls.email }}"
+            - "--certificatesResolvers.{{ .Values.tls.resolver }}.acme.tlsChallenge=true"
+            {{- end }}
           ports:
           {{- range $name, $config := .Values.entrypoints }}
             - name: {{ $name | quote }}
