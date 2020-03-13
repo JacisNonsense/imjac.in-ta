@@ -84,14 +84,18 @@ case $1 in
     rm $UNENC_FILE
     ;;
   install)
-    eval $(decrypt_file $ENC_FILE | grep -v '^#' | xargs)
+    # eval $(decrypt_file $ENC_FILE | grep -v '^#' | xargs)
+    decrypt_file $ENC_FILE > $UNENC_FILE
+    source $UNENC_FILE
     helm upgrade "${INSTALL_ARGS[@]}" --install imjacinta imjacinta \
       --set secret_key_base="$secret_key_base" \
       --set imjacinta.master_key="$imjacinta_master_key" \
       --set curtincourses.master_key="$curtincourses_master_key" \
       --set postgresql.postgresqlPassword="$postgresql_password" \
       --set imjacinta.gcs="$imjacinta_gcs" \
+      --set curtincourses.gcs="$imjacinta_gcs" \
       --set traefik.htpasswd="$traefik_htpasswd"
+    rm $UNENC_FILE
     ;;
   uninstall)
     helm uninstall imjacinta
