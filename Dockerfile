@@ -5,8 +5,6 @@ FROM jaci/rails-base:5.2.3-alpine
 # require rebuilding. If we copied all the files here, the bundle install
 # layer would require rebuilding every time, which is both time and space
 # expensive.
-
-# `rake docker:prepare_bundle` must be run before this
 COPY ./build/depslayer /app
 
 RUN bundle install

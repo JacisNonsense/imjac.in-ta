@@ -36,6 +36,16 @@ do
       shift
       shift
       ;;
+    --version)
+      INSTALL_ARGS+=(--set imjacinta.image.tag="$2")
+      shift
+      shift
+      ;;
+    --repo)
+      INSTALL_ARGS+=(--set imjacinta.image.name="$2")
+      shift
+      shift
+      ;;
     *)
       POSITIONAL+=("$1")
       shift

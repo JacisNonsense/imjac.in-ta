@@ -32,7 +32,7 @@ curtincourses:
   ingress:
     rule: Host(`curtincourses.staging2.imjac.in`)
   image:
-    name: jaci/curtin-courses
+    name: gcr.io/imjacinta/jaci/curtin-courses
     tag: 9a39392
   resources:
     requests:

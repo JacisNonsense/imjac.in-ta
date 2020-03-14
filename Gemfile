@@ -58,4 +58,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'blog', path: 'engines/blog'
 gem 'dev', path: 'engines/dev'
-gem 'on_deck', path: 'engines/OnDeck'
+# gem 'on_deck', path: 'engines/OnDeck'
