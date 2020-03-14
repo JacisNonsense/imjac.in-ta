@@ -12,7 +12,7 @@ insecure: false
 
 imjacinta:
   ingress:
-    rule: Host(`staging2.imjac.in`) || Host(`dev.staging2.imjac.in`)
+    rule: Host(`imjac.in`) || Host(`dev.imjac.in`) || Host(`www.imjac.in`)
   image:
     name: gcr.io/imjacinta/jaci/imjacinta
     tag: 75d8579-dirty
@@ -30,7 +30,7 @@ imjacinta:
 
 curtincourses:
   ingress:
-    rule: Host(`curtincourses.staging2.imjac.in`)
+    rule: Host(`curtincourses.imjac.in`)
   image:
     name: gcr.io/imjacinta/jaci/curtincourses
     tag: 0c3fa10
@@ -55,7 +55,7 @@ postgresql:
 
 traefik:
   api:
-    host: traefik.staging2.imjac.in
+    host: traefik.imjac.in
   tls:
     enabled: true
     email: 'jaci.brunning@gmail.com'
