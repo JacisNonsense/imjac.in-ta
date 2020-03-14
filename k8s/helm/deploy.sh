@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 KEY=$(cat secrets.key 2> /dev/null || echo "")
 ENC_FILE="secrets.enc"
 UNENC_FILE="/tmp/imjacinta_deploy_secrets.unenc"

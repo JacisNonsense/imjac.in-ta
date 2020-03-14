@@ -36,6 +36,7 @@ jobs:
         echo Deleting: $OLD_IMAGES
         gcloud container images delete --force-delete-tags $OLD_IMAGES
     
+    - run: ggcloud container clusters get-credentials imjacinta --zone australia-southeast1-b --project imjacinta
     - name: Helm install
       run: |
         REPO=$(ruby docker.rb get_repo)
