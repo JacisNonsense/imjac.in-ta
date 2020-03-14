@@ -22,12 +22,16 @@ end
 
 def docker_build
   copy_deps
-  system "docker build -t #{DOCKER_IMG} ."
+  unless system "docker build -t #{DOCKER_IMG} ."
+    raise "Error!"
+  end
 end
 
 def docker_push
   docker_build
-  system "docker push #{DOCKER_IMG}"
+  unless system "docker push #{DOCKER_IMG}"
+    raise "Error!"
+  end
 end
 
 def docker_up_dev
