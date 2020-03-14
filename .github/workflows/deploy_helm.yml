@@ -6,8 +6,36 @@ on:
     - master
 
 jobs:
-  deploy:
+  build_gcr:
     runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      name: Checkout
+      
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6.x
+
+    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        version: '270.0.0'
+        service_account_email: ${{ secrets.GCP_EMAIL }}
+        service_account_key: ${{ secrets.GCP_KEY }}
+
+    - run: gcloud auth configure-docker
+    - run: ruby docker.rb push
+     
+    - name: Delete old GCR images
+      run: |
+        REPO=$(ruby docker.rb get_repo)
+        OLD_IMAGES=$(gcloud container images list-tags $REPO --sort-by=~timestamp --format='get(digest)' | tail -n +3 | awk -v repo=$REPO '{print repo"@"$1}' | xargs)
+        echo Deleting: $OLD_IMAGES
+        gcloud container images delete --force-delete-tags $OLD_IMAGES
+
+  deploy_helm:
+    runs-on: ubuntu-latest
+    needs: build_gcr
     steps:
     - uses: actions/checkout@v2
       name: Checkout
@@ -26,16 +54,6 @@ jobs:
         service_account_email: ${{ secrets.GCP_EMAIL }}
         service_account_key: ${{ secrets.GCP_KEY }}
 
-    - run: gcloud auth configure-docker
-    - run: ruby docker.rb push
-     
-    - name: Delete old GCR images
-      run: |
-        REPO=$(ruby docker.rb get_repo)
-        OLD_IMAGES=$(gcloud container images list-tags $REPO --sort-by=~timestamp --format='get(digest)' | tail -n +3 | awk -v repo=$REPO '{print repo"@"$1}' | xargs)
-        echo Deleting: $OLD_IMAGES
-        gcloud container images delete --force-delete-tags $OLD_IMAGES
-    
     - run: gcloud container clusters get-credentials imjacinta --zone australia-southeast1-b --project imjacinta
     - name: Helm install
       run: |
