@@ -41,5 +41,5 @@ jobs:
         REPO=$(ruby docker.rb get_repo)
         VERSION=$(ruby docker.rb get_tag)
         pushd k8s/helm
-        ./deploy.sh install --version=$VERSION --repo=$REPO --key=${{ secrets.SECRETS_KEY }}
+        ./deploy.sh install --version $VERSION --repo $REPO --key ${{ secrets.SECRETS_KEY }}
         popd
