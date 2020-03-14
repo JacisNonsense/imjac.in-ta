@@ -94,6 +94,7 @@ Rails.application.configure do
     domain: 'mail.imjac.in',
     enable_starttls_auto: true,
     authentication: :plain,
+    tls: true,
     user_name: ENV.fetch("MAILER_USER") { nil },
     password: ENV.fetch("MAILER_PASSWORD") { nil }
   }

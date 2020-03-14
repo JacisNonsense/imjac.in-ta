@@ -15,7 +15,7 @@ imjacinta:
     rule: Host(`staging2.imjac.in`) || Host(`dev.staging2.imjac.in`)
   image:
     name: gcr.io/imjacinta/jaci/imjacinta
-    tag: 783d79d-dirty
+    tag: 75d8579-dirty
   resources:
     requests:
       memory: 400Mi
