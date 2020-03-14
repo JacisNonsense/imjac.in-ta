@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   mount Blog::Engine => "/ta"
   mount Dev::Engine => "/dev"
-  mount OnDeck::Engine => "/frc/ondeck"
+  # mount OnDeck::Engine => "/frc/ondeck"
 
   mount Sidekiq::Web => "/sidekiq"
 
