@@ -11,6 +11,8 @@ data:
   POSTGRES_HOST: {{ .Release.Name }}-{{ .Values.db.host }}
   RAILS_ENV: {{ .Values.env }}
   RAILS_SERVE_STATIC_FILES: 'true'
+  MAILER_HOST: smtp.sendgrid.net
+  MAILER_USER: apikey
   {{ if and (hasKey .Values "insecure") (eq .Values.insecure true) -}}
   NO_SSL: 'true'  # TODO:
   {{ end -}}

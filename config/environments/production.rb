@@ -90,8 +90,11 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address: ENV.fetch("MAILER_HOST") { 'mailer' }, 
-    port: 587, 
-    domain: 'imjac.in',
-    openssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
+    port: 465, 
+    domain: 'mail.imjac.in',
+    enable_starttls_auto: true,
+    authentication: :plain,
+    user_name: ENV.fetch("MAILER_USER") { nil },
+    password: ENV.fetch("MAILER_PASSWORD") { nil }
   }
 end

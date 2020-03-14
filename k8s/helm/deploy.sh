@@ -65,6 +65,7 @@ DEFAULT_SECRETS=(
   'imjacinta_gcs="YOUR GCS JSON HERE (base64 encoded)"'
   'postgresql_password="YOUR PASSWORD HERE"'
   'traefik_htpasswd="YOUR PASSWORD HERE"'
+  'mailer_apikey="YOUR APIKEY HERE"'
 )
 
 case $1 in
@@ -94,7 +95,8 @@ case $1 in
       --set postgresql.postgresqlPassword="$postgresql_password" \
       --set imjacinta.gcs="$imjacinta_gcs" \
       --set curtincourses.gcs="$imjacinta_gcs" \
-      --set traefik.htpasswd="$traefik_htpasswd"
+      --set traefik.htpasswd="$traefik_htpasswd" \
+      --set mailer_apikey="$mailer_apikey"
     rm $UNENC_FILE
     ;;
   uninstall)

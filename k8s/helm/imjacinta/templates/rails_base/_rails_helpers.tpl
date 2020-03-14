@@ -34,6 +34,11 @@ env:
       key: gcs_creds_json
 - name: REDIS_URL
   value: "redis://{{ include "call-nested" (list . "redis" "redis.fullname") }}-master:6379/{{ .valspec.redis_db | default 0 }}"
+- name: MAILER_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ template "rails.fullname" . }}
+      key: mailer_apikey
 {{- with .valspec.container }}
 {{- toYaml . | nindent 0 }}
 {{- end -}}

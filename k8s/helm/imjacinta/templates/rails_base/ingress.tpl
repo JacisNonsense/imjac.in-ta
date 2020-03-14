@@ -22,6 +22,8 @@ spec:
     services:
     - name: {{ template "rails.fullname" . }}
       port: 3000
+    middlewares:
+    - name: {{ template "rails.fullname" . }}-internal-404
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -44,4 +46,13 @@ spec:
       port: 3000
     middlewares:
     - name: https-upgrade
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ template "rails.fullname" . }}-internal-404
+spec:
+  replacePathRegex:
+    regex: ^/internal/(.*)
+    replacement: /404/$1
 {{- end -}}
