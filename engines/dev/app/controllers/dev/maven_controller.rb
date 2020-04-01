@@ -3,6 +3,7 @@ require_dependency "dev/application_controller"
 require 'zip'
 require 'nokogiri'
 require 'digest'
+require 'tempfile'
 
 module Dev
   class MavenController < ApplicationController
@@ -103,6 +104,36 @@ module Dev
       else
         render plain: "Invalid token", status: :unauthorized
       end
+    end
+
+    def download_archive
+      authenticate_admin!
+
+      tf = Tempfile.new(['dev_mvn_archive', '.zip'], Rails.root.to_s + '/tmp/')
+      Zip::OutputStream.open(tf.path) do |s|
+        MavenArtifact.all.each do |a|
+          s.put_next_entry("mvn/#{a.path}/maven-metadata.xml")
+          s.write(a.metadata)
+          s.put_next_entry("mvn/#{a.path}/maven-metadata.xml.sha1")
+          s.write(a.metadata_sha1)
+          s.put_next_entry("mvn/#{a.path}/maven-metadata.xml.md5")
+          s.write(a.metadata_md5)
+        end
+        MavenFile.all.each do |f|
+          s.put_next_entry("mvn/#{f.path}")
+          s.write(f.file.download)
+          s.put_next_entry("mvn/#{f.path}.sha1")
+          s.write(f.sha1)
+          s.put_next_entry("mvn/#{f.path}.md5")
+          s.write(f.md5)
+        end
+        MavenFrcdep.all.each do |d|
+          s.put_next_entry("frcdeps/#{d.filename}")
+          s.write(d.json)
+        end
+      end
+
+      send_file tf.path, filename: 'maven_archive.zip'
     end
 
     # Entrypoint for `maven/admin/upload/archive` (POST)

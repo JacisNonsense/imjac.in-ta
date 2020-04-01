@@ -11,6 +11,7 @@ Dev::Engine.routes.draw do
   get 'maven/token_check' => 'maven#token_check'
 
   # Admin
+  get 'maven/admin/download/archive' => 'maven#download_archive'
   post 'maven/admin/upload/archive' => 'maven#upload_archive'
   get 'maven/admin/tokens' => 'maven#token_manager'
   post 'maven/admin/create_token' => 'maven#create_token'
