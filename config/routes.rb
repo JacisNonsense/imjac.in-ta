@@ -1,5 +1,5 @@
-require 'sidekiq/web'
-require 'sidekiq-scheduler/web'
+# require 'sidekiq/web'
+# require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
   constraints subdomain: "dev" do
@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   # mount Dev::Engine => "/dev"
   # mount OnDeck::Engine => "/frc/ondeck"
 
-  mount Sidekiq::Web => "/sidekiq"
+  # mount Sidekiq::Web => "/sidekiq"
 
   match '/', to: redirect('/ta'), via: :all
 end

@@ -47,15 +47,15 @@ services:
     volumes:
       - redis:/data
   # Sidekiq
-  sidekiq:
-    image: imjacinta
-    command: bundle exec sidekiq
-    volumes:
-      - .:/app
-    depends_on:
-      - setup
-      - redis
-      - imjacinta
+  # sidekiq:
+  #   image: imjacinta
+  #   command: bundle exec sidekiq
+  #   volumes:
+  #     - .:/app
+  #   depends_on:
+  #     - setup
+  #     - redis
+  #     - imjacinta
   # Prometheus
   # prometheus:
     # image: prom/prometheus

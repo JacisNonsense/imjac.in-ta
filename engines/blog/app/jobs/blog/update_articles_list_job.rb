@@ -10,6 +10,7 @@ module Blog
     YAML_FRONT_MATTER_REGEXP = %r!\A(---\s*\n.*?\n?)^((---|\.\.\.)\s*$\n?)!m.freeze
 
     def perform
+      puts "UPDATING BLOG JOBS"
       dir = Blog::Engine.root.join("jekyll/_posts")
       has_new_articles = false
       Dir.glob("#{dir}/**/*").select { |x| File.file?(x) }.each do |post|
