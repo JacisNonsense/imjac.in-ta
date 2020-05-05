@@ -28,7 +28,7 @@ Here, I'll be writing up the solutions to some of my favourite challenges of the
 - **[gerkinz](#gerkinz)**
   - gerkinz is a web-based challenge that involves getting arbitrary code execution on the webserver to fetch the flag using Python's `pickle` library
 - **[tcemu](#tcemu)**
-  - tcemu hides a flag a flag in a binary program file for a simulated CPU and involves writing your own interpreter to find the flag
+  - tcemu hides a flag in a binary program file for a simulated CPU and involves writing your own interpreter to find the flag
 - **[paramz](#paramz)**
   - paramz is another web challenge, but leverages web assembly and can be completed directly in the browser
 - **[scanzone](#scanzone)**
