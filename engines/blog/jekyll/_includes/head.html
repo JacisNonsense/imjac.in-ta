@@ -14,7 +14,10 @@
   <title>{{ og_title }}</title>
 
   {% if page.header-img %}
+    <meta name="twitter:card" content="summary_large_image"></meta>
     <meta property="og:image" content="{{site.url}}{{site.baseurl}}/{{ page.header-img }}" />
+  {% else %}
+    <meta name="twitter:card" content="summary"></meta>
   {% endif %}
   <meta property="og:title" content="{{ og_title }}" />
   <meta property="og:description" content="{{ og_desc }}" />
