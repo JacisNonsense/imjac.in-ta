@@ -10,6 +10,6 @@ Hi There! If you wish to contact me, there are multiple ways to do so. They are 
 
 Platform | Details
 --- | ---
+GitHub | *[https://github.com/JaciBrunning](https://github.com/JaciBrunning)*
 Email | *[jaci.brunning@gmail.com](mailto:jaci.brunning@gmail.com)*
-Email (work) | *[jaci.brunning@curtin.edu.au](mailto:jaci.brunning@curtin.edu.au)*
-GitHub | *[http://github.com/JacisNonsense](http://github.com/JacisNonsense)*
+Keybase | *[keybase.io/jaci](https://keybase.io/jaci)*

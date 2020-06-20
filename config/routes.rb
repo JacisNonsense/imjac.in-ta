@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   # mount Sidekiq::Web => "/sidekiq"
 
   match '/', to: redirect('/ta'), via: :all
+  match '/.well-known/*path', to: redirect { |params, req| "/ta/.well-known/#{params[:path]}" }, via: :all, format: false
 end

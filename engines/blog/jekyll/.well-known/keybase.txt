@@ -1,0 +1,75 @@
+==================================================================
+https://keybase.io/jaci
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://imjac.in
+  * I am jaci (https://keybase.io/jaci) on keybase.
+  * I have a public key with fingerprint 7D9D A57F 1491 D45F 0C29  A0AF BC74 A63E 424D E6CE
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "012020f51b060c42064581533536b78578ea57c667215daa0d83ed4784814a61fe710a",
+      "fingerprint": "7d9da57f1491d45f0c29a0afbc74a63e424de6ce",
+      "host": "keybase.io",
+      "key_id": "bc74a63e424de6ce",
+      "kid": "01012f9c372489a64edffa3e9a7be3f04fecc7efc1022f5e7af231c4f56fc21fa63d0a",
+      "uid": "acfcd3cc56f52e1a6ba3dbe6e99ea419",
+      "username": "jaci"
+    },
+    "service": {
+      "hostname": "imjac.in",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1592641893,
+  "expire_in": 157680000,
+  "prev": "6cb946b4134fc373ed0d302132320d1efd07d7f6cb48083821fd9f766a75da22",
+  "seqno": 23,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.1.13
+Comment: https://keybase.io/crypto
+
+yMNpAnicbVJtUFRVGAbkIygDCoZKo7hO6sSyc78/2NEUHfxooBoHWxJc7r3nnPXC
+cu+2u4BECELWOOFUgw3qH0kcSnImCRlZJASKHDAwUJIUKhA0GnBEJpmAoLOM/uv8
+OXPe93me93nf9/ywcoVfmH+Lp3ZjUsqdXv8r7Z/m+e2d6oJFhGKAQiKxiMiByxd0
+AOj22HI0QCQSJEWTNIk4SiF5UmVpkmc5keIYhmN4RRA5QYQyJ6g8L9AUB2SZBCID
+ASuIrEixMk8hKFCkTJgIpOl26HK6NN2DZQUgAcxDFCtRgOUQqdKSTMpIUQXMYiBL
+swDyKsTEfYbbx8DmFNkNzZqBY/hhW7b3P/jHvrFzJKmMQLOiJPMsBAjJDJRkQYEM
+IlkEVVWASKVImkYcFGREM5TKIo5HKk0hLAqWfecty8kqUgGjqjjL0ZCSeUVmgAJ5
+KElQZinJB3RDly7nQozOllWNKDYROJKvYVN4qL4uHmW1XJw3azrmOF2Gx1ANB47u
+83ic7kQfy1Po9MEKoGJ7JGBTNB3g+WFGPnS5NUMnEimMVD2aT5HiJJpnKVFiTATc
+79Rc0Kb5EJzAiyQ+vjowH0vyqiKxvMJSDIvwZPCiSMCQNMXQDE0CCiJACkBAGMaK
+pMiIeA5AQgLPywLeLU0Tvpbe1Q0ikcalPLIda7o1uy578lyQKO5ozwj08w/zCw4K
+8H0sv7DQiMffrf9i+FLyG68URGea/jBCI+f+vdq2tTl6PGSu9UYKvB2VvcWxbQjo
+m4cdY+XmlYeS0p+Nm1+vf3DpnvL6VxoY3GS1RMT/GNYycX/V0c64hqNF81nDV5eu
+113rL0WBaxw752J/ylhc+sySUx58ovrnkoKK3v5/9gTkRVgjwxw7Dp95mBt0Irnj
+5oOEoVzrn9W/u96fkeqcCQnFLWmjMR15p05bq+XsrZO/LOiWkDevG2X2yOMTA0L2
+rZ6Ms9Mn+w62jFycSK1pKK++YCu9Ebu7Tew+0xdcaR7L3dEy4l0IfB6+NlJ55OY9
+58S3GxR30Hu/nT9vmmn78GC6dEF5aZtpdPzBnqEtS/t7vx/9dYW3t43sHnRYYjdr
+TQdKgsoGvqg6tpTWvvGFkVfNcc90d2btim6tshjTz5kPjP1VWz2v7hS/ezplQ1fm
+1NrB2zVp53g25fOsb760l/SXzzdWvBjI1UJ6qqI1dawsasA7V9/TExPAuVBqRNKa
++EnlbmXpcf/+tYql86R8p3l27O5Tq4wOb91Mzele6zQYf1gP1xkfN35U2xV/uW+h
+MMR+ara5aveRodBrk+GXrfWH4p/gX34b1Httl3KSArus0THrwxNmHfaJ1NKYyMyg
+hiuVTU/GzWf1JDf5OY5R2+9/LWQn7FocmV6XfjZg9eLqqDjb35PRezede6tuOMm7
+/ZPGd/Rb/wHCH8m+
+=H13k
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/jaci
+
+==================================================================
