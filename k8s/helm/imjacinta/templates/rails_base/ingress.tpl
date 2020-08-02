@@ -24,7 +24,6 @@ spec:
       port: 3000
     middlewares:
     - name: {{ template "rails.fullname" . }}-internal-404
-    - name: {{ template "rails.fullname" . }}-hsts-no-include-subdomains
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -56,12 +55,4 @@ spec:
   replacePathRegex:
     regex: ^/internal/(.*)
     replacement: /404/$1
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: {{ template "rails.fullname" . }}-hsts-no-include-subdomains
-spec:
-  headers:
-    stsIncludeSubdomains: false
 {{- end -}}
