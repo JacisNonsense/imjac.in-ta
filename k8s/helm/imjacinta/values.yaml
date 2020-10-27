@@ -33,7 +33,7 @@ curtincourses:
     rule: Host(`curtincourses.imjac.in`)
   image:
     name: gcr.io/imjacinta/jaci/curtincourses
-    tag: 227a798
+    tag: b78bb8b
   resources:
     requests:
       memory: 400Mi
