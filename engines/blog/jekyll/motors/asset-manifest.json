@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/ta/motors/static/css/main.155b8394.chunk.css",
+    "main.js": "/ta/motors/static/js/main.a33877bd.chunk.js",
+    "main.js.map": "/ta/motors/static/js/main.a33877bd.chunk.js.map",
+    "runtime-main.js": "/ta/motors/static/js/runtime-main.d90e1a00.js",
+    "runtime-main.js.map": "/ta/motors/static/js/runtime-main.d90e1a00.js.map",
+    "static/js/2.424f22ca.chunk.js": "/ta/motors/static/js/2.424f22ca.chunk.js",
+    "static/js/2.424f22ca.chunk.js.map": "/ta/motors/static/js/2.424f22ca.chunk.js.map",
+    "3807f31d329517681f79.worker.js": "/ta/motors/3807f31d329517681f79.worker.js",
+    "3807f31d329517681f79.worker.js.LICENSE.txt": "/ta/motors/3807f31d329517681f79.worker.js.LICENSE.txt",
+    "3807f31d329517681f79.worker.js.map": "/ta/motors/3807f31d329517681f79.worker.js.map",
+    "a5b437b2dda1acc78892.worker.js": "/ta/motors/a5b437b2dda1acc78892.worker.js",
+    "a5b437b2dda1acc78892.worker.js.LICENSE.txt": "/ta/motors/a5b437b2dda1acc78892.worker.js.LICENSE.txt",
+    "a5b437b2dda1acc78892.worker.js.map": "/ta/motors/a5b437b2dda1acc78892.worker.js.map",
+    "index.html": "/ta/motors/index.html",
+    "static/css/main.155b8394.chunk.css.map": "/ta/motors/static/css/main.155b8394.chunk.css.map",
+    "static/js/2.424f22ca.chunk.js.LICENSE.txt": "/ta/motors/static/js/2.424f22ca.chunk.js.LICENSE.txt",
+    "static/media/app.scss": "/ta/motors/static/media/fa-solid-900.f4f93856.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d90e1a00.js",
+    "static/js/2.424f22ca.chunk.js",
+    "static/css/main.155b8394.chunk.css",
+    "static/js/main.a33877bd.chunk.js"
+  ]
+}
