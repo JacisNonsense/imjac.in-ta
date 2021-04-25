@@ -12,7 +12,7 @@ insecure: false
 
 imjacinta:
   ingress:
-    rule: Host(`imjac.in`) || Host(`dev.imjac.in`) || Host(`www.imjac.in`)
+    rule: Host(`imjac.in`) || Host(`www.imjac.in`)
   image:
     name: gcr.io/imjacinta/jaci/imjacinta
     tag: 75d8579-dirty
@@ -63,8 +63,8 @@ traefik:
     requests:
       memory: 100Mi
       cpu: 50m
-  nodeSelector:
-    preempt: "false"
+  # nodeSelector:     # For GCP, not required on microk8s
+  #   preempt: "false"
 
 # mariadb-galera:
 #   nameOverride: maria

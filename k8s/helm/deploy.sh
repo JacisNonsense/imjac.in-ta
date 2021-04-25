@@ -5,6 +5,7 @@ set -e
 KEY=$(cat secrets.key 2> /dev/null || echo "")
 ENC_FILE="secrets.enc"
 UNENC_FILE="/tmp/imjacinta_deploy_secrets.unenc"
+CURRENT_COMMIT=$(git rev-parse --short HEAD)
 INSTALL_ARGS=()
 
 POSITIONAL=()
@@ -30,7 +31,7 @@ do
       shift 
       ;;
     --development)
-      INSTALL_ARGS+=(--set insecure='true',traefik.tls.enabled='false')
+      INSTALL_ARGS+=(--set insecure='true')
       shift
       ;;
     --install-arg)
@@ -41,6 +42,10 @@ do
     --version)
       INSTALL_ARGS+=(--set imjacinta.image.tag="$2")
       shift
+      shift
+      ;;
+    --version-auto)
+      INSTALL_ARGS+=(--set imjacinta.image.tag="$CURRENT_COMMIT")
       shift
       ;;
     --repo)

@@ -1,0 +1,8 @@
+- Make some form of automatic updater for the cluster
+  - On-prem CI/CD? Security implications?
+  - Webhook from GitHub Actions that triggers a `./deploy.sh --version-auto`
+  - Another git remote that automatically runs the install when pushed to it?
+    - Could make our own registry aside from GCR...
+    - Gitlab?
+    - Could be generic enough for other projects - curtincourses etc get their own helm instance with a unified traefik LB.
+      - Looks like I need a staging server...

@@ -33,32 +33,32 @@ jobs:
         echo Deleting: $OLD_IMAGES
         gcloud container images delete --force-delete-tags $OLD_IMAGES
 
-  deploy_helm:
-    runs-on: ubuntu-latest
-    needs: build_gcr
-    steps:
-    - uses: actions/checkout@v2
-      name: Checkout
+  # deploy_helm:
+  #   runs-on: ubuntu-latest
+  #   needs: build_gcr
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #     name: Checkout
       
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.x
+  #   - name: Set up Ruby 2.6
+  #     uses: actions/setup-ruby@v1
+  #     with:
+  #       ruby-version: 2.6.x
     
-    - name: Set up Helm
-      uses: azure/setup-helm@v1
+  #   - name: Set up Helm
+  #     uses: azure/setup-helm@v1
 
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
-      with:
-        version: '270.0.0'
-        service_account_email: ${{ secrets.GCP_EMAIL }}
-        service_account_key: ${{ secrets.GCP_KEY }}
+  #   - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+  #     with:
+  #       version: '270.0.0'
+  #       service_account_email: ${{ secrets.GCP_EMAIL }}
+  #       service_account_key: ${{ secrets.GCP_KEY }}
 
-    - run: gcloud container clusters get-credentials imjacinta --zone australia-southeast1-b --project imjacinta
-    - name: Helm install
-      run: |
-        REPO=$(ruby docker.rb get_repo)
-        VERSION=$(ruby docker.rb get_tag)
-        pushd k8s/helm
-        ./deploy.sh install --version $VERSION --repo $REPO --key ${{ secrets.SECRETS_KEY }}
-        popd
+  #   - run: gcloud container clusters get-credentials imjacinta --zone australia-southeast1-b --project imjacinta
+  #   - name: Helm install
+  #     run: |
+  #       REPO=$(ruby docker.rb get_repo)
+  #       VERSION=$(ruby docker.rb get_tag)
+  #       pushd k8s/helm
+  #       ./deploy.sh install --version $VERSION --repo $REPO --key ${{ secrets.SECRETS_KEY }}
+  #       popd
