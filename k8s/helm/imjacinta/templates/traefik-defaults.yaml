@@ -1,0 +1,41 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ template "imjacinta.fullname" . }}-traefik-dashboard
+  labels:
+    app: {{ template "imjacinta.name" . }}-traefik-dashboard
+    chart: {{ template "imjacinta.chart" . }}
+    release: {{ .Release.Name | quote }}
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    {{- if .Values.traefik.ports.websecure.tls.enabled }}
+    certResolver: default
+    {{- end }}
+  routes:
+  - match: {{ .Values.traefik.rule }}
+    kind: Rule
+    priority: 0
+    services:
+    - name: api@internal
+      kind: TraefikService
+    middlewares:
+    - name: {{ template "imjacinta.fullname" . }}-traefik-dashboard-auth
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ template "imjacinta.fullname" . }}-traefik-dashboard-auth
+spec:
+  basicAuth:
+    secret: {{ template "imjacinta.fullname" . }}-traefik-dashboard-secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ template "imjacinta.fullname" . }}-traefik-dashboard-secret
+data:
+  users: {{ .Values.traefik.htpasswd | b64enc | quote }}

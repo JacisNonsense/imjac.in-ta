@@ -22,3 +22,6 @@ dependencies:
   - name: redis
     version: 10.4.1
     repository: "@stable"
+  - name: traefik
+    version: 9.18.3
+    repository: https://helm.traefik.io/traefik

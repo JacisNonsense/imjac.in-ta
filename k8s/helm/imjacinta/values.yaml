@@ -54,11 +54,37 @@ postgresql:
     size: 4Gi
 
 traefik:
-  api:
-    host: traefik.imjac.in
-  tls:
+  rule: Host(`traefik.imjac.in`)
+  # admin:admin is the default. It gets overridden by deploy.sh :)
+  htpasswd: admin:$2y$10$VGrS48pf3mmT.C4TcZL8iO7bRSOlciGWoIORSpLyY/nSkvxVc77yS  # admin:admin
+
+  # Traefik chart adds its own dashboard - but it's not where we want it.
+  ingressRoute:
+    dashboard:
+      enabled: false
+
+  persistence:
     enabled: true
-    email: 'jaci.brunning@gmail.com'
+  additionalArguments:
+    - "--certificatesresolvers.default.acme.storage=/data/acme.json"
+    - "--certificatesresolvers.default.acme.email=jaci.brunning@gmail.com"
+    - "--certificatesresolvers.default.acme.tlsChallenge=true"
+  service:
+    type: NodePort
+
+  # api:
+  #   host: traefik.imjac.in
+  # tls:
+  #   enabled: true
+  #   email: 'jaci.brunning@gmail.com'
+  ports:
+    web:
+      nodePort: 30080
+      redirectTo: websecure    # Enforce HTTPS
+    websecure:
+      tls:
+        enabled: true
+      nodePort: 30443
   resources:
     requests:
       memory: 100Mi

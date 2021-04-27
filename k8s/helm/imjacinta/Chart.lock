@@ -1,9 +1,12 @@
 dependencies:
 - name: postgresql
-  repository: https://kubernetes-charts.storage.googleapis.com/
+  repository: https://charts.helm.sh/stable
   version: 8.3.0
 - name: redis
-  repository: https://kubernetes-charts.storage.googleapis.com/
+  repository: https://charts.helm.sh/stable
   version: 10.4.1
-digest: sha256:005ab173ea73aeaabe79079ccd7e10441c6f5e71b5558cb84712d528735c0cf0
-generated: "2020-02-09T17:22:31.8994478+11:00"
+- name: traefik
+  repository: https://helm.traefik.io/traefik
+  version: 9.18.3
+digest: sha256:a272ffb17046c46f1d09960384be36768789c0d830033db74da74df2202259dc
+generated: "2021-04-26T23:10:09.77393643+08:00"
